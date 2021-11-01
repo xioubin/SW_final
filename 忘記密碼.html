@@ -1,0 +1,27 @@
+<html>
+    <head>
+       <title>忘記密碼</title>
+        <style type="text/css">
+          #title{
+            text-align: center;
+            font-size: xx-large;
+            font-weight: bolder;
+            }
+            #input_box{
+                text-align: center;
+            }
+        </style>
+        <script type="text/javascript">
+            function sent_email(){
+                alert("已傳送郵件");
+            }
+        </script>
+    </head>
+    <body>
+        <h2><div id="title">忘記密碼</div></h2>
+        <div id="input_box"><label class="forget_password">請輸入註冊信箱:</label></div>
+        <div id="input_box"><input type="text" id="user_email"></div>
+        <br/>
+        <div id="input_box"><button type="button" onclick="sent_email();">確認傳送郵件更改密碼</button></div>
+    </body>
+</html>
