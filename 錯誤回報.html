@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>錯誤回報</title>
+        <style type="text/css">
+        #title{
+            text-align: center;
+            font-size: xx-large;
+            font-weight: bolder;
+            }
+        #input_box{
+            text-align: center;
+            }
+        </style>
+        <script type="text/javascript">
+            function received(){
+                alert("已收到您的回覆，感謝您!");
+            }
+        </script>
+    </head>
+    <body>
+        <h2><div id="title">錯誤回報</div></h2>
+        <div id="input_box"><label class="encounter_problem">請輸入您遇到的問題:</label></div>
+        <div id="input_box"><input type="text" id="problem"></div>
+        <br/>
+        <div id="input_box"><button type="button" onclick="received();">傳送回覆</button></div>
+    </body>
+</html>
