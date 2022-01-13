@@ -61,64 +61,64 @@
     <h2>
         <div id="title">與會者名單</div>
     </h2>
-    <div class="in_line">
+    <<div class="in_line">
         {% if request.user.is_authenticated %}
         <a>{{request.user}}</a>
         {% else %}
-        <a href="login.html">Login</a>
+        <a href="login">Login</a>
         {% endif %}
         <span>，您好&nbsp;&nbsp;&nbsp;</span>
-    </div>
-    <aside>
-        <div id="box_1">
-            <!--左邊的選框-->
-            <ul>
-                <li><a href="search.html">借用情形查詢</a>
-                </li>
-                <li><a href="book.html">借用登記</a></li>
-                <li><a href="search.html">借用記錄查詢</a></li>
-                <li><a href="report.html">錯誤回報</a>
-                </li>
-            </ul>
         </div>
-    </aside>
-    <br />
-    <div id="calendar_text_1">
-        <table align="center">
-            <tr>
-                <td colspan="2"></td>
-            </tr>
-            <tr>
-                <td width="20%" align="center" style='border-right:1px solid #000000'>姓名</td>
-                <td></td>
-            </tr>
-            <tr bgcolor="black" style="height: 0.5;">
-                <td colspan="2"></td>
-            </tr>
-            <tr>
-                <td width="20%" align="center" style='border-right:1px solid #000000'>林佳儀</td>
-                <td width="20%" align="center"><button>刪除</button></td>
-            </tr>
-            <tr bgcolor="black" style="height: 0.5;">
-                <td colspan="2"></td>
-            </tr>
-            <tr>
-                <td width="20%" align="center" style='border-right:1px solid #000000'>林佳儀</td>
-                <td width="20%" align="center"><button>刪除</button></td>
-            </tr>
-            <tr bgcolor="black" style="height: 0.5;">
-                <td colspan="2"></td>
-            </tr>
-
-        </table>
-        <br>
-        新增人員
-        <div style="font-size:20px">請輸入參與者姓名: <input></div>
-        <div style="font-size:20px">請輸入參與者信箱: <input></div>
-        <br>
-        <button type="submit" onclick="add();"><a
-                href="file:///C:/Users/USER/Desktop/vina%E7%9A%84%E5%8A%9F%E8%AA%B2/%E5%A4%A7%E4%B8%89%E4%B8%8A/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/SW_final/templates/%E8%88%87%E6%9C%83%E8%80%85%E5%90%8D%E5%96%AE.html">新增</a></button>
+        <aside>
+            <div id="box_1">
+                <!--左邊的選框-->
+                <ul>
+                    <li><a href="search">借用情形查詢</a>
+                    </li>
+                    <li><a href="book">借用登記</a></li>
+                    <li><a href="search">借用記錄查詢</a></li>
+                    <li><a href="report">錯誤回報</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
         <br />
+        <div id="calendar_text_1">
+            <table align="center">
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td width="20%" align="center" style='border-right:1px solid #000000'>姓名</td>
+                    <td></td>
+                </tr>
+                <tr bgcolor="black" style="height: 0.5;">
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td width="20%" align="center" style='border-right:1px solid #000000'>林佳儀</td>
+                    <td width="20%" align="center"><button>刪除</button></td>
+                </tr>
+                <tr bgcolor="black" style="height: 0.5;">
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td width="20%" align="center" style='border-right:1px solid #000000'>林佳儀</td>
+                    <td width="20%" align="center"><button>刪除</button></td>
+                </tr>
+                <tr bgcolor="black" style="height: 0.5;">
+                    <td colspan="2"></td>
+                </tr>
+
+            </table>
+            <br>
+            新增人員
+            <div style="font-size:20px">請輸入參與者姓名: <input></div>
+            <div style="font-size:20px">請輸入參與者信箱: <input></div>
+            <br>
+            <button type="submit" onclick="add();"><a
+                    href="file:///C:/Users/USER/Desktop/vina%E7%9A%84%E5%8A%9F%E8%AA%B2/%E5%A4%A7%E4%B8%89%E4%B8%8A/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/SW_final/templates/%E8%88%87%E6%9C%83%E8%80%85%E5%90%8D%E5%96%AE.html">新增</a></button>
+            <br />
 </body>
 
 </html>
