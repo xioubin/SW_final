@@ -5,12 +5,48 @@ from django.http import HttpResponse
 # Create your views here.
 
 
+def book(request):
+    return render(request, 'book.html')
+
+
+def comfirm(request):
+    return render(request, 'comfirm.html')
+
+
+def forgrt(request):
+    return render(request, 'forgrt.html')
+
+
 def home(request):
     return render(request, 'home.html')
 
 
 def login(request):
-    return render(request, 'login_page.html')
+    return render(request, 'login.html')
+
+
+def home(request):
+    return render(request, 'home.html')
+
+
+def participants(request):
+    return render(request, 'participants.html')
+
+
+def records(request):
+    return render(request, 'records.html')
+
+
+def register(request):
+    return render(request, 'register.html')
+
+
+def report(request):
+    return render(request, 'report.html')
+
+
+def search(request):
+    return render(request, 'search.html')
 
 
 def user_login(request):
