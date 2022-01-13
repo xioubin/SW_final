@@ -9,11 +9,11 @@ def home(request):
     return render(request, 'home.html')
 
 
-def login_page(request):
+def login(request):
     return render(request, 'login_page.html')
 
 
-def login(request):
+def user_login(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/home/')
     username = request.POST.get('username', '')
@@ -26,6 +26,6 @@ def login(request):
         return render(request, 'login.html', locals())
 
 
-def logout(request):
+def user_logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/index/')
