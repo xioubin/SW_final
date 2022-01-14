@@ -13,8 +13,8 @@ def comfirm(request):
     return render(request, 'comfirm.html')
 
 
-def forgrt(request):
-    return render(request, 'forgrt.html')
+def forget(request):
+    return render(request, 'forget.html')
 
 
 def home(request):
