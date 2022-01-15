@@ -4,16 +4,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
 
-
-def get_calendar():
-    time_choices = [8, 9, 10, 11, 12]
-    room_choices = [1, 2, 3, 4, 5]
-    return {'time_choices': time_choices, 'room_choices': room_choices}
+time_choices = ['8:00-9:00', '9:00-10:00', '10:00-11:00',
+                '11:00-12:00', '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00', ]
+room_choices = [1, 2, 3, 4, 5]
 
 
 def index(request):
-    context = get_calendar()
+    context = {}
     context['subtitle'] = '借用情形查詢'
+    context['time_choices'] = time_choices
+    context['room_choices'] = room_choices
+
     return render(request, 'index.html', context=context)
 
 
@@ -37,10 +38,11 @@ def login(request):
     return render(request, 'login.html')
 
 
-def home(request):
-    context = get_calendar()
-    context['subtitle'] = '借用情形查詢'
-    return render(request, 'home.html', context=context)
+# def home(request):
+#     context={}
+#     context['timechoices']=time_choices
+#     context['subtitle'] = '借用情形查詢'
+#     return render(request, 'home.html', context=context)
 
 
 def participants(request):
