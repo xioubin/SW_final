@@ -5,6 +5,18 @@ from django.http import HttpResponse
 # Create your views here.
 
 
+def get_calendar():
+    time_choices = [8, 9, 10, 11, 12]
+    room_choices = [1, 2, 3, 4, 5]
+    return {'time_choices': time_choices, 'room_choices': room_choices}
+
+
+def index(request):
+    context = get_calendar()
+    context['subtitle'] = '借用情形查詢'
+    return render(request, 'index.html', context=context)
+
+
 def book(request):
     return render(request, 'book.html')
 
@@ -26,7 +38,9 @@ def login(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    context = get_calendar()
+    context['subtitle'] = '借用情形查詢'
+    return render(request, 'home.html', context=context)
 
 
 def participants(request):
