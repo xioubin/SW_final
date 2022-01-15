@@ -12,6 +12,6 @@ urlpatterns = [
     path('records/', views.records, name='records'),
     path('register/', views.register, name='register'),
     path('report/', views.report, name='report'),
-    path('search/', views.search, name='search'),
+    # path('search/', views.search, name='search'),
     path('accounts/login/', views.user_login),
 ]

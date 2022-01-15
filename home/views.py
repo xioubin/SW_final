@@ -59,10 +59,6 @@ def report(request):
     return render(request, 'report.html')
 
 
-def search(request):
-    return render(request, 'search.html')
-
-
 def user_login(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/home/')
