@@ -62,14 +62,13 @@ def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user=form.save()
+            user = form.save()
             return HttpResponseRedirect('/login')
     else:
-        form = UserCreationForm() 
-    
-    context = {
-        'form':form
-    }
+        form = UserCreationForm()
+    context = {}
+    context['subtitle'] = '註冊'
+    context['form'] = form
     return render(request, 'register.html', context)
 
 
