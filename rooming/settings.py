@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-^%8f468alrbc^3nvmzx5147#-hx(ng422hxc^-j(e14@8q7z&g'
-
+GMAIL_KEY = 'vvrxfakfzaabvnra'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -126,3 +126,12 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# SMTP Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  #SMTP伺服器
+EMAIL_PORT = 587  #TLS通訊埠號
+EMAIL_USE_TLS = True  #開啟TLS(傳輸層安全性)
+EMAIL_HOST_USER = 'b10830038@gapps.ntust.edu.tw'  #寄件者電子郵件
+EMAIL_HOST_PASSWORD = GMAIL_KEY  #Gmail應用程式的密碼
