@@ -58,7 +58,9 @@ def register(request):
 
 
 def report(request):
-    return render(request, 'report.html')
+    context = {}
+    context['subtitle'] = '錯誤回報'
+    return render(request, 'report.html', context=context)
 
 
 def user_login(request):
