@@ -7,6 +7,7 @@
         <td colspan="6"></td>
     </tr>
     <tr>
+    
         <td width="15%">&nbsp&nbsp</td>
         <td width="17%" style='border-right:1px solid #000000'>ROOM 1</td>
         <td width="17%" style='border-right:1px solid #000000'>ROOM 2</td>
@@ -15,12 +16,12 @@
         <td width="17%">ROOM 5</td>
     </tr>
 
-    {%for time_choice in time_choices%}
+    {%for i,time_choice in time_choices%}
     <tr bgcolor="green" style="height: 1;">
         <td colspan="6"></td>
     </tr>
     <tr>
-        <td width="15%" style='border-right:1px solid #000000'>time_choice</td>
+        <td width="15%" style='border-right:1px solid #000000'>{{time_choice}}</td>
 
         {%for room_choice in room_choices%}
         <td width="17%" style='border-right:1px solid #000000'></td>

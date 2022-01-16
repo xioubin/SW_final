@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
+from .models import Reservation
 # Create your views here.
 
 time_choices = ['8:00-9:00', '9:00-10:00', '10:00-11:00',
@@ -15,8 +16,8 @@ room_choices = [1, 2, 3, 4, 5]
 def index(request):
     context = {}
     context['subtitle'] = '借用情形查詢'
-    context['time_choices'] = time_choices
-    context['room_choices'] = room_choices
+    context['time_choices'] = Reservation.TIME_CHOICES
+    context['room_choices'] = Reservation.ROOM_CHOICES
 
     return render(request, 'index.html', context=context)
 

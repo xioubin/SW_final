@@ -1,59 +1,51 @@
-# from django.db import models
-# from django.contrib.auth.models import AbstractUser
-# # Create your models here.
+from django.db import models
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 
-# class UserInfo(AbstractUser):
-#     email = models.EmailField(
-#         max_length=70, null=True, blank=True, unique=True)
-#     name = models.CharField(max_length=50)
-#     password = models.CharField(max_length=50)
+class User(models.Model):
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+    email = models.EmailField(unique=True, max_length=100)
 
 
-# # class Room(models.Model):
-# #     caption = models.CharField(max_length=32, verbose_name="会议室名称")
-# #     num = models.IntegerField(verbose_name="容纳人数")  # 容纳人数
+class Reservation(models.Model):
 
-# #     def __str__(self):
-# #         return self.caption
+    ROOM_CHOICES = [
+        (0, "ROOM 1"),
+        (1, "ROOM 2"),
+        (2, "ROOM 3"),
+        (3, "ROOM 4"),
+        (4, "ROOM 5"),
+    ]
 
-# #     class Meta:
-# #         verbose_name = "会议室信息"
-# #         verbose_name_plural = verbose_name
+    TIME_CHOICES = [
+        (0, "8-9"),
+        (1, "9-10"),
+        (2, "10-11"),
+        (3, "11-12"),
+        (4, "12-13"),
+        (5, "13-14"),
+        (1, "14-15"),
+        (2, "16-17")
+    ]
 
+    organizer = models.ForeignKey(
+        User,
+        related_name="organized_reservations",
+        on_delete=models.CASCADE
+    )
+    invitees = models.ManyToManyField(
+        User
+    )
 
-# class Book(models.Model):
-#     """会议室预订"""
-#     user = models.ForeignKey(to="UserInfo", on_delete=models.CASCADE)
-#     # room = models.ForeignKey(to="Room", on_delete=models.CASCADE)
-#     date = models.DateField()
-#     time_choice = (
-#         (1, "8:00"),
-#         (2, "9:00"),
-#         (3, "10:00"),
-#         (4, "11:00"),
-#         (5, "12:00"),
-#         (6, "13:00"),
-#         (7, "14:00"),
-#         (8, "15:00"),
-#         (9, "16:00"),
-#         (10, "17:00"),
-#         (11, "18:00"),
-#         (12, "19:00"),
-#         (13, "20:00"),
-#         (14, "21:00"),
-#         (15, "22:00"),
-#         (16, "23:00"),
-#     )
+    room = models.IntegerField(choices=ROOM_CHOICES)
 
-#     time_id = models.IntegerField(choices=time_choice)
+    title = models.CharField(max_length=150)
 
-#     def __str__(self):
-#         return str(self.user)+"预定了"+str(self.room)
+    date = models.DateTimeField()
+    time = models.IntegerField(choices=TIME_CHOICES)
 
-#     class Meta:
-#         verbose_name = "预定信息"
-#         verbose_name_plural = verbose_name
-#         unique_together = (
-#             ("room", "date", "time_id"),  # 这三个字段联合唯一，防止重复预订
-#         )
+    class Meta:
+        unique_together = ((),)
