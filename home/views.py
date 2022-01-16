@@ -1,7 +1,10 @@
 
+from contextlib import redirect_stderr
 from django.contrib import auth
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 time_choices = ['8:00-9:00', '9:00-10:00', '10:00-11:00',
@@ -54,7 +57,20 @@ def records(request):
 
 
 def register(request):
-    return render(request, 'register.html')
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user=form.save()
+            return HttpResponseRedirect('/login')
+    else:
+        form = UserCreationForm() 
+    
+    context = {
+        'form':form
+    }
+    return render(request, 'register.html', context)
 
 
 def report(request):

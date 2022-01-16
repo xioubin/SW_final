@@ -10,3 +10,8 @@ must include:
 `django.core.mail`
 api:
 `send_mail(subject, message, receive_list)`
+##### super admin account
+```
+superadmin
+zxc1234567890
+```
