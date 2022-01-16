@@ -47,5 +47,5 @@ class Reservation(models.Model):
     date = models.DateTimeField()
     time = models.IntegerField(choices=TIME_CHOICES)
 
-    class Meta:
-        unique_together = ((),)
+    # class Meta:
+    #     unique_together = ((date, time, room),)
