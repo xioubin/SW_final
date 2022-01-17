@@ -39,7 +39,9 @@ def home(request):
 
 
 def login(request):
-    return render(request, 'login.html')
+    context = {}
+    context['subtitle'] = '登入'
+    return render(request, 'login.html', context=context)
 
 
 # def home(request):

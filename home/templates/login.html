@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+    <style type="text/css">
+        #input_box {
+            width: 70%;
+            float: left;
+            font-weight: bold;
+            text-align: center;
+            font-size: large;
+            margin-top: 30px;
+        }
+
+        #input_box_2 {
+            width: 101.5%;
+            float: left;
+            font-weight: bold;
+            text-align: center;
+            font-size: large;
+            margin-top: 30px;
+        }
+    </style>
+
+    <div id="input_box"><label class="login_input">請輸入使用者電子郵件:</label></div>
+    <div id="input_box"><input type="text" id="user_email"></div>
+    <br />
+    <div id="input_box"><label class="login_input">請輸入使用者密碼:</label></div>
+    <div id="input_box_2"><input type="text" id="user_password"></div>
+    <br />
+    <div id="input_box_2"><button type="button">登入</button></div>
+    <br />
+    <div id="input_box_2"><button type="button"><a href="{% url 'register' %}">註冊</a></button>
+    </div>
+    <br />
+    <div id="input_box_2"><button type="button"><a href="{% url 'forget' %}">忘記密碼</a></button>
+    </div>
+{% endblock %}
