@@ -1,10 +1,10 @@
 from django.db import models
 from django.conf import settings
 
-User = settings.AUTH_USER_MODEL
+User_Info = settings.AUTH_USER_MODEL
 
 
-class User(models.Model):
+class User_Info(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     email = models.EmailField(unique=True, max_length=100)
@@ -32,12 +32,12 @@ class Reservation(models.Model):
     ]
 
     organizer = models.ForeignKey(
-        User,
+        User_Info,
         related_name="organized_reservations",
         on_delete=models.CASCADE
     )
     invitees = models.ManyToManyField(
-        User
+        User_Info
     )
 
     room = models.IntegerField(choices=ROOM_CHOICES)

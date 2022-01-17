@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<style type="text/css">
+{% comment %} <style type="text/css">
 
         #input_box {
             width: 70%;
@@ -19,8 +19,15 @@
             font-size: large;
             margin-top: 30px;
         }
-</style>
-<form method="POST">{% csrf_token %}
+</style> {% endcomment %}
+<form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {% for field in form %}
+        {{ field.errors }}
+      {% endfor %}
+  <button type="submit">送出</button>
+{% comment %} <form method="POST">{% csrf_token %}
     <div id="input_box"><label class="enroll_input">請輸入使用者名稱:</label></div>
     <div id="input_box"><input type="text" id="username"></div>
     <br />
@@ -35,5 +42,5 @@
     <div id="input_box_2"><button type="button"><a
                 href="{% url 'index' %}">取消</a></button>
     </div>
-</form>
+</form> {% endcomment %}
 {% endblock %}

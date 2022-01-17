@@ -35,10 +35,10 @@ def home(request):
     return render(request, 'home.html')
 
 
-def login(request):
-    context = {}
-    context['subtitle'] = '登入'
-    return render(request, 'login.html', context=context)
+# def login(request):
+#     context = {}
+#     context['subtitle'] = '登入'
+#     return render(request, 'login.html', context=context)
 
 
 # def home(request):
@@ -61,9 +61,10 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            # auth.login(request, user)
             messages.success(request, "Registration successful.")
-            return redirect('/index')
+            return redirect('/home/')
+        print(form.errors)
         messages.error(
             request, "Unsuccessful registration. Invalid information.")
     form = RegisterForm()
@@ -94,4 +95,4 @@ def user_login(request):
 
 def user_logout(request):
     auth.logout(request)
-    return redirect('/index/')
+    return redirect('/home/')

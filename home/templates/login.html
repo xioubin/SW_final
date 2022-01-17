@@ -19,20 +19,12 @@
             margin-top: 30px;
         }
     </style>
-    <form action="" method="post">
-        <div id="input_box"><label class="login_input">請輸入使用者電子郵件:</label></div>
-        <div id="input_box"><input type="text" id="user_email"></div>
-        <br />
-        <div id="input_box"><label class="login_input">請輸入使用者密碼:</label></div>
-        <div id="input_box_2"><input type="text" id="user_password"></div>
-        <br />
-        <div id="input_box_2"><input  type="submit" value="登入"></div>
-        <br />
-        <div id="input_box_2"><button type="button"><a href="{% url 'register' %}">註冊</a></button>
-        </div>
-        <br />
-        <div id="input_box_2"><button type="button"><a href="{% url 'forget' %}">忘記密碼</a></button>
-        </div>
-    </form>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {% for field in form %}
+        {{ field.errors }}
+      {% endfor %}
+  <button type="submit">送出</button>
 
 {% endblock %}
