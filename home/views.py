@@ -68,7 +68,7 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # auth.login(request, user)
+            auth.login(request, user)
             messages.success(request, "Registration successful.")
             return redirect('/home/')
         print(form.errors)
