@@ -51,9 +51,10 @@ def participants(request):
 
 
 def records(request):
-    if request.GET.get('user-filter'):
-        user_filter = request.user
-        reservations = Reservation.objects.filter(reservation_=user_filter)
+    if request.user.is_authenticated:
+        # user_filter = request.user
+        reservations = Reservation.objects.filter(organizer=request.user)
+        print(request.user, reservations)
     else:
         messages.error(
             request, "Unsuccessful user_filter.")
@@ -87,28 +88,6 @@ def report(request):
     context['subtitle'] = '錯誤回報'
     return render(request, 'report.html', context=context)
 
-
-# class LoginView(FormView):
-
-#     form_class = LoginForm
-#     # success_url = reverse_lazy('custom_auth:dashboard')
-#     template_name = 'login.html'
-
-#     def form_valid(self, form):
-#         """ process user login"""
-#         credentials = form.cleaned_data
-
-#         user = auth.authenticate(username=credentials['email'],
-#                                  password=credentials['password'])
-
-#         if user is not None:
-#             auth.login(self.request, user)
-#             return redirect('/home/')
-
-#         else:
-#             messages.add_message(self.request, messages.INFO, 'Wrong credentials\
-#                                 please try again')
-#             return redirect('/home/')
 
 def user_login(request):
     if request.user.is_authenticated:

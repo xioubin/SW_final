@@ -30,7 +30,9 @@
       {% for field in form %}
         {{ field.errors }}
       {% endfor %}
-      <button type="submit">送出</button>
+      <a type="submit">送出</a>
+      <a href='{$ "register" %}'>註冊</a>
+      <a href='{$ "forget" %}'>忘記密碼</a>
     </form>
 
 {% endblock %}
