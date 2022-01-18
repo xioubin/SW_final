@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 class User_InfoManager(BaseUserManager):
     use_in_migration = True
 
-    def create_user(self, email, username, password=None, is_admin=False, is_staff=False, is_active=True):
+    def create_user(self, email, username, password, is_admin=False, is_staff=False, is_active=True):
         if not email:
             raise ValueError("User must have an email")
         if not password:
@@ -31,7 +31,7 @@ class User_InfoManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, username, password=None, is_staff=False, is_active=True):
-        return self.create_user(email, username, password, is_admin=True,  is_staff=False, is_active=True)
+        return self.create_user(email, username, password, is_admin=True,  is_staff=is_staff, is_active=is_active)
 
 
 class User_Info(AbstractBaseUser, PermissionsMixin):
@@ -41,7 +41,7 @@ class User_Info(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, max_length=100)
     is_superadmin = models.BooleanField(_('is_superadmin'), default=False)
     is_active = models.BooleanField(_('is_active'), default=True)
-    is_staff = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
     objects = User_InfoManager()
 
     REQUIRED_FIELDS = ['username']

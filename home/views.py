@@ -1,8 +1,9 @@
 from django.contrib import auth
 from django.shortcuts import render, redirect
-from .models import Reservation
+from .models import Reservation, User_Info
 from .form import RegisterForm, LoginForm, bookForm
 from django.contrib import messages
+from django.views.generic.edit import FormView
 # Create your views here.
 
 # time_choices = ['8:00-9:00', '9:00-10:00', '10:00-11:00',
@@ -87,6 +88,28 @@ def report(request):
     return render(request, 'report.html', context=context)
 
 
+# class LoginView(FormView):
+
+#     form_class = LoginForm
+#     # success_url = reverse_lazy('custom_auth:dashboard')
+#     template_name = 'login.html'
+
+#     def form_valid(self, form):
+#         """ process user login"""
+#         credentials = form.cleaned_data
+
+#         user = auth.authenticate(username=credentials['email'],
+#                                  password=credentials['password'])
+
+#         if user is not None:
+#             auth.login(self.request, user)
+#             return redirect('/home/')
+
+#         else:
+#             messages.add_message(self.request, messages.INFO, 'Wrong credentials\
+#                                 please try again')
+#             return redirect('/home/')
+
 def user_login(request):
     if request.user.is_authenticated:
         return redirect('/home/')
@@ -97,9 +120,12 @@ def user_login(request):
         if form.is_valid():
             print('login1')
 
-            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            user = auth.authenticate(username=username, password=password)
+            user_check = User_Info.objects.get(email=email)
+            print(password, user_check.password)
+
+            user = auth.authenticate(email=email, password=password)
             messages.success(request, "Login successful.")
             if user is not None and user.is_active:
                 print('login2')
@@ -107,11 +133,13 @@ def user_login(request):
                 auth.login(request, user)
                 return redirect('/home/')
             else:
-                messages.error('user not founf')
+                print(user)
+                messages.error(request, 'user not found')
         else:
+            print(form.errors)
             print('form invalid')
             messages.error(
-                request, "Login invalid")
+                request, "Unsuccessful registration. Invalid information.")
 
     form = LoginForm()
     context = {}
