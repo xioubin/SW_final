@@ -1,63 +1,5 @@
-<<<<<<< HEAD
-<html>
-
-<head>
-    <title>借用記錄查詢</title>
-    <style type="text/css">
-        #title {
-            text-align: center;
-            font-size: xx-large;
-            font-weight: bolder;
-        }
-
-        #input_box {
-            width: 69%;
-            float: left;
-            font-weight: bold;
-            text-align: center;
-            font-size: large;
-            margin-top: 30px;
-        }
-
-        aside {
-            width: 200px;
-            background-color: rgb(240, 255, 241);
-            color: cadetblue;
-            font-weight: bold;
-            text-align: center;
-            float: left;
-            margin: 20px;
-        }
-
-        .in_line {
-            text-align: right;
-            font-size: medium;
-        }
-    </style>
-    <script type="text/javascript">
-        function cancel() {
-            alert("取消會議");
-        }
-    </script>
-</head>
-
-<body>
-    <h2>
-        <div id="title">借用記錄查詢</div>
-    </h2>
-    <div class="in_line">
-        {% include "login_bar.html" %}
-    </div>
-    <aside>
-        {% include "redirects.html" %}
-    </aside>
-    <br>
-    借用紀錄
-    <br><br>
-=======
 {% extends "base.html" %}
 {% block content %}
->>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
     <table width="80%">
         <tr>
             <td colspan="8"></td>
@@ -71,67 +13,24 @@
         <tr bgcolor="green">
             <td colspan="8"></td>
         </tr>
-<<<<<<< HEAD
-        <tr>
-=======
         {%for reservation in reservations%}
             <tr>
             <td>{{i}}</td>
             <td>{{reservation.date}}</td>
-            <td>{{reservation.time}}</td>
+            <td>{{reservation.get_time_display}}</td>
             <td>{{reservation.get_room_display }}</td>
-            <td><button><a>會議時間更改</a></button>
+            {% comment %} <td><button><a>會議時間更改</a></button>
             </td>
             <td><button><a>會議室更改</a></button>
             </td>
             <td><button><a>與會人員更改</a></button>
             </td>
             <td><button onclick="cancel();">取消會議</button></td>
-            </tr>
+            </tr> {% endcomment %}
             
             <tr bgcolor="green">
                 <td colspan="8"></td>
             </tr>
         {%endfor%}
-        {% comment %} <tr>
->>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
-            <td>1</td>
-            <td>2021-12-25</td>
-            <td>13:00-15:00</td>
-            <td>ROOM 1</td>
-            <td><button><a
-                        href="file:///C:/Users/USER/Desktop/vina%E7%9A%84%E5%8A%9F%E8%AA%B2/%E5%A4%A7%E4%B8%89%E4%B8%8A/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/SW_final/templates/%E5%80%9F%E7%94%A8%E7%B3%BB%E7%B5%B1-1.html">會議時間更改</a></button>
-            </td>
-            <td><button><a
-                        href="file:///C:/Users/USER/Desktop/vina%E7%9A%84%E5%8A%9F%E8%AA%B2/%E5%A4%A7%E4%B8%89%E4%B8%8A/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/SW_final/templates/%E5%80%9F%E7%94%A8%E7%B3%BB%E7%B5%B1-1.html">會議室更改</a></button>
-            </td>
-            <td><button><a
-                        href="file:///C:/Users/USER/Desktop/vina%E7%9A%84%E5%8A%9F%E8%AA%B2/%E5%A4%A7%E4%B8%89%E4%B8%8A/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/SW_final/templates/%E8%88%87%E6%9C%83%E8%80%85%E5%90%8D%E5%96%AE.html">與會人員更改</a></button>
-            </td>
-            <td><button onclick="cancel();">取消會議</button></td>
-        </tr>
-        <tr bgcolor="green">
-            <td colspan="8"></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td width="20%">2021-12-25</td>
-            <td width="20%">13:00-15:00</td>
-            <td width="20%">ROOM 1</td>
-            <td><button>會議時間更改</button></td>
-            <td><button>會議室更改</button></td>
-            <td><button>與會人員更改</button></td>
-            <td><button>取消會議</button></td>
-<<<<<<< HEAD
-        </tr>
-    </table>
-
-</body>
-
-</html>
-<!--如果還沒登入要跳到登入頁面-->
-=======
-        </tr> {% endcomment %}
     </table>
 {% endblock %}
->>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34

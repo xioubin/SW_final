@@ -50,7 +50,13 @@ def participants(request):
 
 
 def records(request):
-    reservations = Reservation.objects.all()
+    if request.GET.get('user-filter'):
+        user_filter = request.user
+        reservations = Reservation.objects.filter(reservation_=user_filter)
+    else:
+        messages.error(
+            request, "Unsuccessful user_filter.")
+        reservations = Reservation.objects.all()
     context = {}
     context['subtitle'] = '借用記錄查詢'
     context['reservations'] = reservations
