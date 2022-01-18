@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 
 User_Info = settings.AUTH_USER_MODEL
+<<<<<<< HEAD
 
 
 # class User_InfoManager(BaseUserManager):
@@ -45,6 +46,51 @@ User_Info = settings.AUTH_USER_MODEL
 #         return user
 
 
+=======
+Login_Info = settings.AUTH_USER_MODEL
+
+# class User_InfoManager(BaseUserManager):
+#     def create_user(self, email, username, profile_picture, password=None, is_admin=False, is_staff=False, is_active=True):
+#         if not email:
+#             raise ValueError("User must have an email")
+#         if not password:
+#             raise ValueError("User must have a password")
+#         if not username:
+#             raise ValueError("User must have a username")
+
+#         user = self.model(
+#             email=self.normalize_email(email)
+#         )
+#         user.username = username
+#         user.set_password(password)  # change password to hash
+#         user.profile_picture = profile_picture
+#         user.admin = is_admin
+#         user.staff = is_staff
+#         user.active = is_active
+#         user.save(using=self._db)
+#         return user
+
+#     def create_superuser(self, email, username, password=None, **extra_fields):
+#         if not email:
+#             raise ValueError("User must have an email")
+#         if not password:
+#             raise ValueError("User must have a password")
+#         if not username:
+#             raise ValueError("User must have a username")
+
+#         user = self.model(
+#             email=self.normalize_email(email)
+#         )
+#         user.username = username
+#         user.set_password(password)
+#         user.admin = True
+#         user.staff = True
+#         user.active = True
+#         user.save(using=self._db)
+#         return user
+
+
+>>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
 # class User_Info(AbstractBaseUser):
 #     USERNAME_FIELD = 'email'
 #     username = models.CharField(max_length=100)
@@ -66,6 +112,10 @@ class User_Info(models.Model):
     password = models.CharField(max_length=100)
     email = models.EmailField(unique=True, max_length=100)
 
+class Login_Info(models.Model):
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+    
 
 class Reservation(models.Model):
 

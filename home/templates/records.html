@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
 
 <head>
@@ -53,6 +54,10 @@
     <br>
     借用紀錄
     <br><br>
+=======
+{% extends "base.html" %}
+{% block content %}
+>>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
     <table width="80%">
         <tr>
             <td colspan="8"></td>
@@ -67,7 +72,30 @@
         <tr bgcolor="green">
             <td colspan="8"></td>
         </tr>
+<<<<<<< HEAD
         <tr>
+=======
+        {%for reservation in reservations%}
+            <tr>
+            <td>{{i}}</td>
+            <td>{{reservation.date}}</td>
+            <td>{{reservation.time}}</td>
+            <td>{{reservation.room}}</td>
+            <td><button><a>會議時間更改</a></button>
+            </td>
+            <td><button><a>會議室更改</a></button>
+            </td>
+            <td><button><a>與會人員更改</a></button>
+            </td>
+            <td><button onclick="cancel();">取消會議</button></td>
+            </tr>
+            
+            <tr bgcolor="green">
+                <td colspan="8"></td>
+            </tr>
+        {%endfor%}
+        {% comment %} <tr>
+>>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
             <td>1</td>
             <td>2021-12-25</td>
             <td>13:00-15:00</td>
@@ -95,6 +123,7 @@
             <td><button>會議室更改</button></td>
             <td><button>與會人員更改</button></td>
             <td><button>取消會議</button></td>
+<<<<<<< HEAD
         </tr>
     </table>
 
@@ -102,3 +131,8 @@
 
 </html>
 <!--如果還沒登入要跳到登入頁面-->
+=======
+        </tr> {% endcomment %}
+    </table>
+{% endblock %}
+>>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
