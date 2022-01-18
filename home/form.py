@@ -1,7 +1,7 @@
 from django import forms
 from .models import User_Info
 from .models import Login_Info
-
+from .models import Book_Info
 
 # Create your forms here.
 
@@ -21,3 +21,12 @@ class LoginForm(forms.ModelForm):
     class Meta:
         model = Login_Info
         fields = ("username", "password")
+
+class bookForm(forms.ModelForm):
+    room = forms.CharField(max_length=10)
+    time = forms.CharField(max_length=20)
+    participant = forms.CharField(max_length=100)
+
+    class Meta:
+        model = Book_Info
+        fields = ("room", "time", "participant")

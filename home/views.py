@@ -2,7 +2,7 @@ from distutils.log import Log
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from .models import Reservation
-from .form import RegisterForm, LoginForm
+from .form import RegisterForm, LoginForm, bookForm
 from django.contrib import messages
 # Create your views here.
 
@@ -21,7 +21,11 @@ def index(request):
 
 
 def book(request):
-    return render(request, 'book.html')
+    form = bookForm()
+    context = {}
+    context['subtitle'] = '會議室借用'
+    context['form'] = form
+    return render(request, 'book.html', context)
 
 
 def comfirm(request):
