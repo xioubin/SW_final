@@ -1,8 +1,15 @@
+<<<<<<< HEAD
+from django.contrib import auth
+from django.shortcuts import render, redirect
+from .models import Reservation
+from .form import RegisterForm
+=======
 from distutils.log import Log
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from .models import Reservation
 from .form import RegisterForm, LoginForm
+>>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
 from django.contrib import messages
 # Create your views here.
 
@@ -36,6 +43,22 @@ def home(request):
     return render(request, 'home.html')
 
 
+<<<<<<< HEAD
+# def login(request):
+#     context = {}
+#     context['subtitle'] = '登入'
+#     return render(request, 'login.html', context=context)
+
+
+# def home(request):
+#     context={}
+#     context['timechoices']=time_choices
+#     context['subtitle'] = '借用情形查詢'
+#     return render(request, 'home.html', context=context)
+
+
+=======
+>>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
 def participants(request):
     return render(request, 'participants.html')
 
@@ -51,7 +74,10 @@ def records(request):
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
+<<<<<<< HEAD
+=======
         print(form)
+>>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
         if form.is_valid():
             user = form.save()
             # auth.login(request, user)
@@ -60,8 +86,11 @@ def register(request):
         print(form.errors)
         messages.error(
             request, "Unsuccessful registration. Invalid information.")
+<<<<<<< HEAD
+=======
     else:
         form = RegisterForm()
+>>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
     form = RegisterForm()
     context = {}
     context['subtitle'] = '註冊'
