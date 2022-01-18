@@ -1,25 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-{% comment %} <style type="text/css">
-
-        #input_box {
-            width: 70%;
-            float: left;
-            font-weight: bold;
-            text-align: center;
-            font-size: large;
-            margin-top: 30px;
-        }
-
-        #input_box_2 {
-            width: 101.5%;
-            float: left;
-            font-weight: bold;
-            text-align: center;
-            font-size: large;
-            margin-top: 30px;
-        }
-</style> {% endcomment %}
 <form method="POST">
       {% csrf_token %}
       {{ form.as_p }}
@@ -27,20 +7,4 @@
         {{ field.errors }}
       {% endfor %}
   <button type="submit">送出</button>
-{% comment %} <form method="POST">{% csrf_token %}
-    <div id="input_box"><label class="enroll_input">請輸入使用者名稱:</label></div>
-    <div id="input_box"><input type="text" id="username"></div>
-    <br />
-    <div id="input_box_2"><label class="login_input">請輸入使用者電子郵件:</label></div>
-    <div id="input_box_2"><input type="text" id="email"></div>
-    <br />
-    <div id="input_box_2"><label class="login_input">請輸入密碼:</label></div>
-    <div id="input_box_2"><input type="text" id="password"></div>
-    <br />
-    <div id="input_box_2"><input  type="submit" value="確認"></div>
-    <br />
-    <div id="input_box_2"><button type="button"><a
-                href="{% url 'index' %}">取消</a></button>
-    </div>
-</form> {% endcomment %}
 {% endblock %}
