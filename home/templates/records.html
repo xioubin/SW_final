@@ -1,63 +1,5 @@
-<<<<<<< HEAD
-<html>
-
-<head>
-    <title>借用記錄查詢</title>
-    <style type="text/css">
-        #title {
-            text-align: center;
-            font-size: xx-large;
-            font-weight: bolder;
-        }
-
-        #input_box {
-            width: 69%;
-            float: left;
-            font-weight: bold;
-            text-align: center;
-            font-size: large;
-            margin-top: 30px;
-        }
-
-        aside {
-            width: 200px;
-            background-color: rgb(240, 255, 241);
-            color: cadetblue;
-            font-weight: bold;
-            text-align: center;
-            float: left;
-            margin: 20px;
-        }
-
-        .in_line {
-            text-align: right;
-            font-size: medium;
-        }
-    </style>
-    <script type="text/javascript">
-        function cancel() {
-            alert("取消會議");
-        }
-    </script>
-</head>
-
-<body>
-    <h2>
-        <div id="title">借用記錄查詢</div>
-    </h2>
-    <div class="in_line">
-        {% include "login_bar.html" %}
-    </div>
-    <aside>
-        {% include "redirects.html" %}
-    </aside>
-    <br>
-    借用紀錄
-    <br><br>
-=======
 {% extends "base.html" %}
 {% block content %}
->>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
     <table width="80%">
         <tr>
             <td colspan="8"></td>
@@ -71,9 +13,6 @@
         <tr bgcolor="green">
             <td colspan="8"></td>
         </tr>
-<<<<<<< HEAD
-        <tr>
-=======
         {%for reservation in reservations%}
             <tr>
             <td>{{i}}</td>
@@ -94,7 +33,6 @@
             </tr>
         {%endfor%}
         {% comment %} <tr>
->>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
             <td>1</td>
             <td>2021-12-25</td>
             <td>13:00-15:00</td>
@@ -122,16 +60,6 @@
             <td><button>會議室更改</button></td>
             <td><button>與會人員更改</button></td>
             <td><button>取消會議</button></td>
-<<<<<<< HEAD
-        </tr>
-    </table>
-
-</body>
-
-</html>
-<!--如果還沒登入要跳到登入頁面-->
-=======
         </tr> {% endcomment %}
     </table>
 {% endblock %}
->>>>>>> 5278c158db3a161f8edbcf8171c41258e6b39a34
