@@ -1,10 +1,67 @@
 from django.db import models
 from django.conf import settings
 
-User = settings.AUTH_USER_MODEL
+User_Info = settings.AUTH_USER_MODEL
 
 
-class User(models.Model):
+# class User_InfoManager(BaseUserManager):
+#     def create_user(self, email, username, profile_picture, password=None, is_admin=False, is_staff=False, is_active=True):
+#         if not email:
+#             raise ValueError("User must have an email")
+#         if not password:
+#             raise ValueError("User must have a password")
+#         if not username:
+#             raise ValueError("User must have a username")
+
+#         user = self.model(
+#             email=self.normalize_email(email)
+#         )
+#         user.username = username
+#         user.set_password(password)  # change password to hash
+#         user.profile_picture = profile_picture
+#         user.admin = is_admin
+#         user.staff = is_staff
+#         user.active = is_active
+#         user.save(using=self._db)
+#         return user
+
+#     def create_superuser(self, email, username, password=None, **extra_fields):
+#         if not email:
+#             raise ValueError("User must have an email")
+#         if not password:
+#             raise ValueError("User must have a password")
+#         if not username:
+#             raise ValueError("User must have a username")
+
+#         user = self.model(
+#             email=self.normalize_email(email)
+#         )
+#         user.username = username
+#         user.set_password(password)
+#         user.admin = True
+#         user.staff = True
+#         user.active = True
+#         user.save(using=self._db)
+#         return user
+
+
+# class User_Info(AbstractBaseUser):
+#     USERNAME_FIELD = 'email'
+#     username = models.CharField(max_length=100)
+#     password = models.CharField(max_length=100)
+#     email = models.EmailField(unique=True, max_length=100)
+#     is_staff = models.BooleanField(
+#         _('staff status'),
+#         default=False,
+#         help_text=_(
+#             'Designates whether the user can log into this admin site.'),
+#     )
+#     objects = User_InfoManager()
+
+#     REQUIRED_FIELDS = ['username', 'password']
+
+
+class User_Info(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     email = models.EmailField(unique=True, max_length=100)
@@ -32,12 +89,12 @@ class Reservation(models.Model):
     ]
 
     organizer = models.ForeignKey(
-        User,
+        User_Info,
         related_name="organized_reservations",
         on_delete=models.CASCADE
     )
     invitees = models.ManyToManyField(
-        User
+        User_Info
     )
 
     room = models.IntegerField(choices=ROOM_CHOICES)

@@ -1,11 +1,8 @@
-
-from contextlib import redirect_stderr
 from django.contrib import auth
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 from .models import Reservation
+from .form import RegisterForm
+from django.contrib import messages
 # Create your views here.
 
 time_choices = ['8:00-9:00', '9:00-10:00', '10:00-11:00',
@@ -38,10 +35,10 @@ def home(request):
     return render(request, 'home.html')
 
 
-def login(request):
-    context = {}
-    context['subtitle'] = '登入'
-    return render(request, 'login.html', context=context)
+# def login(request):
+#     context = {}
+#     context['subtitle'] = '登入'
+#     return render(request, 'login.html', context=context)
 
 
 # def home(request):
@@ -60,15 +57,17 @@ def records(request):
 
 
 def register(request):
-    form = UserCreationForm()
-
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            return HttpResponseRedirect('/login')
-    else:
-        form = UserCreationForm()
+            # auth.login(request, user)
+            messages.success(request, "Registration successful.")
+            return redirect('/home/')
+        print(form.errors)
+        messages.error(
+            request, "Unsuccessful registration. Invalid information.")
+    form = RegisterForm()
     context = {}
     context['subtitle'] = '註冊'
     context['form'] = form
@@ -83,17 +82,17 @@ def report(request):
 
 def user_login(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect('/home/')
+        return redirect('/home/')
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
     if user is not None and user.is_active:
         auth.login(request, user)
-        return HttpResponseRedirect('/home/')
+        return redirect('/home/')
     else:
         return render(request, 'login.html', locals())
 
 
 def user_logout(request):
     auth.logout(request)
-    return HttpResponseRedirect('/index/')
+    return redirect('/home/')
