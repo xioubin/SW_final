@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 
 User_Info = settings.AUTH_USER_MODEL
-
+Login_Info = settings.AUTH_USER_MODEL
 
 # class User_InfoManager(BaseUserManager):
 #     def create_user(self, email, username, profile_picture, password=None, is_admin=False, is_staff=False, is_active=True):
@@ -66,6 +66,10 @@ class User_Info(models.Model):
     password = models.CharField(max_length=100)
     email = models.EmailField(unique=True, max_length=100)
 
+class Login_Info(models.Model):
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+    
 
 class Reservation(models.Model):
 
