@@ -48,6 +48,8 @@ def records(request):
         user_filter = request.GET.get('user-filter')
         reservations = Reservation.objects.filter(reservation_user=user_filter)
     else:
+        messages.error(
+            request, "Unsuccessful user_filter.")
         reservations = Reservation.objects.all()
     context = {}
     context['subtitle'] = '借用記錄查詢'
