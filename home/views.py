@@ -91,23 +91,33 @@ def user_login(request):
     if request.user.is_authenticated:
         return redirect('/home/')
     if request.method == "POST":
-        form = LoginForm(request.POST)
+        print('login')
+
+        form = LoginForm(data=request.POST)
         if form.is_valid():
-            username = request.POST.get('username', '')
-            password = request.POST.get('password', '')
+            print('login1')
+
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
             user = auth.authenticate(username=username, password=password)
             messages.success(request, "Login successful.")
             if user is not None and user.is_active:
+                print('login2')
+
                 auth.login(request, user)
                 return redirect('/home/')
-        messages.error(
-            request, "Login invalid")
+            else:
+                messages.error('user not founf')
+        else:
+            print('form invalid')
+            messages.error(
+                request, "Login invalid")
 
     form = LoginForm()
     context = {}
-    context['subtitle'] = 'login'
+    context['subtitle'] = '登入'
     context['form'] = form
-    return render(request, 'register.html', context)
+    return render(request, 'login.html', context)
 
 
 def user_logout(request):
