@@ -92,3 +92,7 @@ class Reservation(models.Model):
 
     # class Meta:
     #     unique_together = ((date, time, room),)
+
+
+class ErrorReport(models.Model):
+    content = models.CharField(max_length=500)
