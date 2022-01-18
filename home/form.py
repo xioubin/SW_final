@@ -10,10 +10,6 @@ class RegisterForm(forms.ModelForm):
     email = forms.EmailField(max_length=100)
 
     class Meta:
-<<<<<<< Updated upstream
         model = User_Info
         fields = ("username", "email", "password")
-=======
-        model = User
-        fields = ("username", "email")
->>>>>>> Stashed changes
+
