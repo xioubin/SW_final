@@ -1,7 +1,7 @@
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from .models import Reservation
-from .form import RegisterForm, LoginForm, bookForm
+from .form import RegisterForm, LoginForm
 from django.contrib import messages
 # Create your views here.
 
@@ -20,10 +20,10 @@ def index(request):
 
 
 def book(request):
-    form = bookForm()
-    context = {}
-    context['subtitle'] = '會議室借用'
-    context['form'] = form
+    # form = bookForm()
+    # context = {}
+    # context['subtitle'] = '會議室借用'
+    # context['form'] = form
     return render(request, 'book.html', context)
 
 
@@ -37,19 +37,6 @@ def forget(request):
 
 def home(request):
     return render(request, 'home.html')
-
-
-# def login(request):
-#     context = {}
-#     context['subtitle'] = '登入'
-#     return render(request, 'login.html', context=context)
-
-
-# def home(request):
-#     context={}
-#     context['timechoices']=time_choices
-#     context['subtitle'] = '借用情形查詢'
-#     return render(request, 'home.html', context=context)
 
 
 def participants(request):
@@ -86,19 +73,6 @@ def report(request):
     context = {}
     context['subtitle'] = '錯誤回報'
     return render(request, 'report.html', context=context)
-
-
-'''def user_login(request):
-    if request.user.is_authenticated:
-        return redirect('/home/')
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
-    if user is not None and user.is_active:
-        auth.login(request, user)
-        return redirect('/home/')
-    else:
-        return render(request, 'login.html', locals())'''
 
 
 def user_login(request):
