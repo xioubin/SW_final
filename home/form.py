@@ -25,6 +25,9 @@ class LoginForm(AuthenticationForm):
 
 
 class bookForm(forms.ModelForm):
+    date = forms.DateField(widget=forms.DateInput(attrs={
+        'type': 'date'}))
+
     class Meta:
         model = Reservation
         fields = ("organizer", "date", "time", "room", "invitees", "title")
