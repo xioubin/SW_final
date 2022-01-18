@@ -66,10 +66,6 @@ class User_Info(models.Model):
     password = models.CharField(max_length=100)
     email = models.EmailField(unique=True, max_length=100)
 
-class Login_Info(models.Model):
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-    
 
 class Reservation(models.Model):
 

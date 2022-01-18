@@ -9,7 +9,6 @@
             <td>日期</td>
             <td>時間</td>
             <td>會議室</td>
-
         </tr>
         <tr bgcolor="green">
             <td colspan="8"></td>
@@ -19,7 +18,7 @@
             <td>{{i}}</td>
             <td>{{reservation.date}}</td>
             <td>{{reservation.time}}</td>
-            <td>{{reservation.room}}</td>
+            <td>{{reservation.get_room_display }}</td>
             <td><button><a>會議時間更改</a></button>
             </td>
             <td><button><a>會議室更改</a></button>

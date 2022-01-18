@@ -14,10 +14,11 @@ class RegisterForm(forms.ModelForm):
         model = User_Info
         fields = ("username", "email", "password")
 
-class LoginForm(forms.ModelForm):   
+
+class LoginForm(forms.ModelForm):
     username = forms.CharField(max_length=100)
     password = forms.CharField(max_length=100)
-    
+
     class Meta:
-        model = Login_Info
+        model = User_Info
         fields = ("username", "password")

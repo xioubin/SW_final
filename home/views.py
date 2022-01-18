@@ -84,6 +84,7 @@ def report(request):
     else:
         return render(request, 'login.html', locals())'''
 
+
 def user_login(request):
     if request.user.is_authenticated:
         return redirect('/home/')
@@ -93,15 +94,18 @@ def user_login(request):
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
             user = auth.authenticate(username=username, password=password)
+            messages.success(request, "Login successful.")
             if user is not None and user.is_active:
                 auth.login(request, user)
                 return redirect('/home/')
+        messages.error(
+            request, "Login invalid")
+
     form = LoginForm()
     context = {}
     context['subtitle'] = 'login'
     context['form'] = form
     return render(request, 'register.html', context)
-
 
 
 def user_logout(request):
