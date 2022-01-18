@@ -72,6 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rooming.wsgi.application'
 
+AUTH_USER_MODEL = 'home.User_Info'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
