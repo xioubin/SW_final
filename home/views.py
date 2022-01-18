@@ -35,25 +35,16 @@ def home(request):
     return render(request, 'home.html')
 
 
-# def login(request):
-#     context = {}
-#     context['subtitle'] = '登入'
-#     return render(request, 'login.html', context=context)
-
-
-# def home(request):
-#     context={}
-#     context['timechoices']=time_choices
-#     context['subtitle'] = '借用情形查詢'
-#     return render(request, 'home.html', context=context)
-
-
 def participants(request):
     return render(request, 'participants.html')
 
 
 def records(request):
-    return render(request, 'records.html')
+    reservations = Reservation.objects.all()
+    context = {}
+    context['subtitle'] = '借用記錄查詢'
+    context['reservations'] = reservations
+    return render(request, 'records.html', context=context)
 
 
 def register(request):
