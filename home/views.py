@@ -45,8 +45,8 @@ def participants(request):
 
 def records(request):
     if request.GET.get('user-filter'):
-        user_filter = request.GET.get('user-filter')
-        reservations = Reservation.objects.filter(reservation_user=user_filter)
+        user_filter = request.user
+        reservations = Reservation.objects.filter(reservation_=user_filter)
     else:
         messages.error(
             request, "Unsuccessful user_filter.")

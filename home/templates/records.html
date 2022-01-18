@@ -17,16 +17,16 @@
             <tr>
             <td>{{i}}</td>
             <td>{{reservation.date}}</td>
-            <td>{{reservation.time}}</td>
+            <td>{{reservation.get_time_display}}</td>
             <td>{{reservation.get_room_display }}</td>
-            <td><button><a>會議時間更改</a></button>
+            {% comment %} <td><button><a>會議時間更改</a></button>
             </td>
             <td><button><a>會議室更改</a></button>
             </td>
             <td><button><a>與會人員更改</a></button>
             </td>
             <td><button onclick="cancel();">取消會議</button></td>
-            </tr>
+            </tr> {% endcomment %}
             
             <tr bgcolor="green">
                 <td colspan="8"></td>
