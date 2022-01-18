@@ -1,7 +1,8 @@
+from distutils.log import Log
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from .models import Reservation
-from .form import RegisterForm
+from .form import RegisterForm, LoginForm
 from django.contrib import messages
 # Create your views here.
 
@@ -80,7 +81,7 @@ def report(request):
     return render(request, 'report.html', context=context)
 
 
-def user_login(request):
+'''def user_login(request):
     if request.user.is_authenticated:
         return redirect('/home/')
     username = request.POST.get('username', '')
@@ -90,7 +91,26 @@ def user_login(request):
         auth.login(request, user)
         return redirect('/home/')
     else:
-        return render(request, 'login.html', locals())
+        return render(request, 'login.html', locals())'''
+
+def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('/home/')
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = request.POST.get('username', '')
+            password = request.POST.get('password', '')
+            user = auth.authenticate(username=username, password=password)
+            if user is not None and user.is_active:
+                auth.login(request, user)
+                return redirect('/home/')
+    form = LoginForm()
+    context = {}
+    context['subtitle'] = 'login'
+    context['form'] = form
+    return render(request, 'register.html', context)
+
 
 
 def user_logout(request):
