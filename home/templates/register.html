@@ -2,7 +2,7 @@
 {% block content %}
 <form method="POST">
       {% csrf_token %}
-      {% comment %} {{ form.as_p }} {% endcomment %}
+      {{ form.as_p }}
       {% for field in form %}
         {{ field.errors }}
       {% endfor %}
