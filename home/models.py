@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
-
+#from django.utils.translation import gettext_lazy as _
 # User_Info = settings.AUTH_USER_MODEL
 
 
