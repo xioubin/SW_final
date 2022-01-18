@@ -12,10 +12,6 @@ api:
 `send_mail(subject, message, receive_list)`
 ##### super admin account
 ```
-superadmin
-zxc1234567890
-```
-```
-p
-0
+Admin@gmail.com
+admin
 ```
