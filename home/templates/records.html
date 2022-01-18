@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+    <table width="80%">
+        <tr>
+            <td colspan="8"></td>
+        </tr>
+        <tr>
+            <td>&nbsp</td>
+            <td>日期</td>
+            <td>時間</td>
+            <td>會議室</td>
+
+        </tr>
+        <tr bgcolor="green">
+            <td colspan="8"></td>
+        </tr>
+        {%for reservation in reservations%}
+            <tr>
+            <td>{{i}}</td>
+            <td>{{reservation.date}}</td>
+            <td>{{reservation.time}}</td>
+            <td>{{reservation.room}}</td>
+            <td><button><a>會議時間更改</a></button>
+            </td>
+            <td><button><a>會議室更改</a></button>
+            </td>
+            <td><button><a>與會人員更改</a></button>
+            </td>
+            <td><button onclick="cancel();">取消會議</button></td>
+            </tr>
+            
+            <tr bgcolor="green">
+                <td colspan="8"></td>
+            </tr>
+        {%endfor%}
+        {% comment %} <tr>
+            <td>1</td>
+            <td>2021-12-25</td>
+            <td>13:00-15:00</td>
+            <td>ROOM 1</td>
+            <td><button><a
+                        href="file:///C:/Users/USER/Desktop/vina%E7%9A%84%E5%8A%9F%E8%AA%B2/%E5%A4%A7%E4%B8%89%E4%B8%8A/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/SW_final/templates/%E5%80%9F%E7%94%A8%E7%B3%BB%E7%B5%B1-1.html">會議時間更改</a></button>
+            </td>
+            <td><button><a
+                        href="file:///C:/Users/USER/Desktop/vina%E7%9A%84%E5%8A%9F%E8%AA%B2/%E5%A4%A7%E4%B8%89%E4%B8%8A/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/SW_final/templates/%E5%80%9F%E7%94%A8%E7%B3%BB%E7%B5%B1-1.html">會議室更改</a></button>
+            </td>
+            <td><button><a
+                        href="file:///C:/Users/USER/Desktop/vina%E7%9A%84%E5%8A%9F%E8%AA%B2/%E5%A4%A7%E4%B8%89%E4%B8%8A/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/SW_final/templates/%E8%88%87%E6%9C%83%E8%80%85%E5%90%8D%E5%96%AE.html">與會人員更改</a></button>
+            </td>
+            <td><button onclick="cancel();">取消會議</button></td>
+        </tr>
+        <tr bgcolor="green">
+            <td colspan="8"></td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td width="20%">2021-12-25</td>
+            <td width="20%">13:00-15:00</td>
+            <td width="20%">ROOM 1</td>
+            <td><button>會議時間更改</button></td>
+            <td><button>會議室更改</button></td>
+            <td><button>與會人員更改</button></td>
+            <td><button>取消會議</button></td>
+        </tr> {% endcomment %}
+    </table>
+{% endblock %}
