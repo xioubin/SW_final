@@ -1,6 +1,6 @@
 from django import forms
 from .models import User_Info
-
+from .models import Reservation
 
 class RegisterForm(forms.ModelForm):
     username = forms.CharField(max_length=100)
@@ -21,11 +21,7 @@ class LoginForm(forms.ModelForm):
         fields = ("username", "password")
 
 
-# class bookForm(forms.ModelForm):
-#     room = forms.CharField(max_length=10)
-#     time = forms.CharField(max_length=20)
-#     participant = forms.CharField(max_length=100)
-
-#     class Meta:
-#         model = Book_Info
-#         fields = ("room", "time", "participant")
+class bookForm(forms.ModelForm):
+     class Meta:
+         model = Reservation
+         fields = ("organizer", "date", "time","room","invitees","title")
