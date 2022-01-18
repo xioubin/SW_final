@@ -59,6 +59,7 @@ def records(request):
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
+        print(form)
         if form.is_valid():
             user = form.save()
             # auth.login(request, user)
@@ -67,6 +68,8 @@ def register(request):
         print(form.errors)
         messages.error(
             request, "Unsuccessful registration. Invalid information.")
+    else:
+        form = RegisterForm()
     form = RegisterForm()
     context = {}
     context['subtitle'] = '註冊'
