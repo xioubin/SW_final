@@ -105,6 +105,9 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
+            text = 'Hi! ' + form.cleaned_data.get('username') + '\nYou are successfully register booking system. Please remember your account and password.'
+            mail = form.cleaned_data.get('email')
+            send_mail('註冊成功通知', text, None, [mail])
             auth.login(request, user)
             messages.success(request, "Registration successful.")
             return redirect('/home/')
