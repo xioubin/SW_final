@@ -27,16 +27,17 @@ def index(request):
 
 def book(request):
     if request.method == "POST":
-        form = bookForm(request.POST)
+        form = bookForm(request.POST,user=request.user)
         if form.is_valid():
             form.save()
             # auth.login(request, user)
             return redirect('/home/')
-    form = bookForm()
+    form = bookForm(user=request.user)
     context = {}
     context['subtitle'] = '借用'
     context['form'] = form
     return render(request, 'book.html', context)
+
 
 
 def comfirm(request):
