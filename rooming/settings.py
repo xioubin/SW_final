@@ -74,7 +74,10 @@ WSGI_APPLICATION = 'rooming.wsgi.application'
 
 AUTH_USER_MODEL = 'home.User_Info'
 
-# AUTHENTICATION_BACKENDS = ['home.authenticate.CustomerAuthenticationBackend']
+# AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
+#                            'home.authenticate.CustomerAuthenticationBackend']
+
+# PASSWORD_HASHERS = ('home.authenticate.PlainTextPassword',)
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
