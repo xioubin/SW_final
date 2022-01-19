@@ -19,14 +19,25 @@ import string
 
 
 def index(request):
-    form = IndexDateForm(request.GET)
+    form = IndexDateForm()
+
+    if request.method == "POST":
+        form = IndexDateForm(request.POST)
+        if form.is_valid():
+            date = form.cleaned_data.get('date')
+            host_reservations = Reservation.objects.filter(
+                date=date)
+            print(host_reservations)
+            # print(date)
+            return redirect('/home/')
+        else:
+            print(form.errors)
+
     context = {}
     context['subtitle'] = '借用情形查詢'
     context['time_choices'] = Reservation.TIME_CHOICES
     context['room_choices'] = Reservation.ROOM_CHOICES
     context['form'] = form
-
-    host_reservations = Reservation.objects.filter(organizer=request.user)
 
     return render(request, 'index.html', context=context)
 

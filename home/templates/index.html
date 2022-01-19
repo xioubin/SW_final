@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <form method="POST">
-<div id="calendar_text_2">請選擇會議室日期<br /> {% csrf_token %}{{ form.date }}</div>
+<div id="calendar_text_2">請選擇會議室日期<br /> 
+    {% csrf_token %}
+    {{ form.date }}
+    <button type="submit">search</button>
+</div>
+
 </form>
 
 <table width="80%" height="100%" style="text-align:center;">

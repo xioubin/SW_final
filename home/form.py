@@ -53,5 +53,6 @@ class IndexDateForm(forms.Form):
     date = forms.DateField(widget=forms.DateInput(attrs={
         'type': 'date'}))
 
-    class Meta:
-        fields = ("date")
+    # class Meta:
+    #     model = Reservation
+    #     fields = ("date")
