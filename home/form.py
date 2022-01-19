@@ -47,3 +47,11 @@ class bookForm(forms.ModelForm):
 
 class forgetForm(forms.Form):
     email = forms.EmailField()
+
+
+class IndexDateForm(forms.Form):
+    date = forms.DateField(widget=forms.DateInput(attrs={
+        'type': 'date'}))
+
+    class Meta:
+        fields = ("date")

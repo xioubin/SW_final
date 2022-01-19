@@ -3,7 +3,7 @@ import re
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from .models import Reservation, User_Info, ErrorReport
-from .form import RegisterForm, LoginForm, bookForm, forgetForm
+from .form import RegisterForm, LoginForm, bookForm, forgetForm, IndexDateForm
 from django.contrib import messages
 from django.views.generic.edit import FormView
 
@@ -19,10 +19,14 @@ import string
 
 
 def index(request):
+    form = IndexDateForm(request.GET)
     context = {}
     context['subtitle'] = '借用情形查詢'
     context['time_choices'] = Reservation.TIME_CHOICES
     context['room_choices'] = Reservation.ROOM_CHOICES
+    context['form'] = form
+
+    host_reservations = Reservation.objects.filter(organizer=request.user)
 
     return render(request, 'index.html', context=context)
 
