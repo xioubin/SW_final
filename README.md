@@ -12,6 +12,6 @@ api:
 `send_mail(subject, message, receive_list)`
 ##### super admin account
 ```
-Admin@gmail.com
+admin@gmail.com
 admin
 ```
