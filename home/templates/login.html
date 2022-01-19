@@ -1,29 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-    {% comment %} <style type="text/css">
-        #input_box {
-            width: 70%;
-            float: left;
-            font-weight: bold;
-            text-align: center;
-            font-size: large;
-            margin-top: 30px;
-        }
-
-        #input_box_2 {
-            width: 101.5%;
-            float: left;
-            font-weight: bold;
-            text-align: center;
-            font-size: large;
-            margin-top: 30px;
-        }
-    </style> {% endcomment %}
-
     {% if form.errors %}
     <p>username or password not correct</p>
     {% endif %}
-
+<div id="calendar_text_2">
     <form method="POST">
       {% csrf_token %}
       {{ form.as_p }}
@@ -34,5 +14,5 @@
       <a href="{% url 'register' %}">註冊</a>
       <a href="{% url 'forget' %}">忘記密碼</a>
     </form>
-
+  </div>
 {% endblock %}

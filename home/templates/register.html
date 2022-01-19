@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div id="calendar_text_2">
 <form method="POST">
       {% csrf_token %}
       {{ form.as_p }}
@@ -7,4 +8,6 @@
         {{ field.errors }}
       {% endfor %}
   <button type="submit">送出</button>
+</form>
+</div>
 {% endblock %}
