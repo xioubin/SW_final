@@ -1,35 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
-    <table width="80%">
+    <table width="100%">
         <tr>
-            <td colspan="8"></td>
+            <td colspan="5"></td>
         </tr>
         <tr>
-            <td>&nbsp</td>
+            <td>會議名稱</td>
             <td>日期</td>
             <td>時間</td>
             <td>會議室</td>
+            <td>&nbsp</td>
         </tr>
         <tr bgcolor="green">
-            <td colspan="8"></td>
+            <td colspan="5"></td>
         </tr>
-        {%for reservation in reservations%}
+        {%for reservation in host_reservations%}
             <tr>
-            <td>{{i}}</td>
+            <td>{{reservation.title}}</td>
             <td>{{reservation.date}}</td>
             <td>{{reservation.get_time_display}}</td>
             <td>{{reservation.get_room_display }}</td>
-            {% comment %} <td><button><a>會議時間更改</a></button>
-            </td>
-            <td><button><a>會議室更改</a></button>
-            </td>
-            <td><button><a>與會人員更改</a></button>
-            </td>
-            <td><button onclick="cancel();">取消會議</button></td>
-            </tr> {% endcomment %}
-            
+            <td><button ><a href="{% url 'modify' %}">會議修改</a></button>
+            </tr> 
             <tr bgcolor="green">
-                <td colspan="8"></td>
+                <td colspan="5"></td>
+            </tr>
+        {%endfor%}
+    </table>
+
+    <table width="100%">
+        <tr>
+            <td colspan="5"></td>
+        </tr>
+        <tr>
+            <td>會議名稱</td>
+            <td>日期</td>
+            <td>時間</td>
+            <td>會議室</td>
+            <td>&nbsp</td>
+        </tr>
+        <tr bgcolor="green">
+            <td colspan="5"></td>
+        </tr>
+        {%for reservation in invited_reservations%}
+            <tr>
+            <td>{{reservation.title}}</td>
+            <td>{{reservation.date}}</td>
+            <td>{{reservation.get_time_display}}</td>
+            <td>{{reservation.get_room_display }}</td>
+            <td><button ><a href="{% url 'modify' %}">參與</a></button>
+            {% comment %} <td><button ><a href="{% url 'modify' %}">不參與</a></button> {% endcomment %}
+            </tr>
+            <tr bgcolor="green">
+                <td colspan="5"></td>
             </tr>
         {%endfor%}
     </table>

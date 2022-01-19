@@ -26,6 +26,8 @@ class LoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
 
+# should be no organizer => organizer should and in view by request.user
+
 
 class bookForm(forms.ModelForm):
     def __init__(self, *args, user=None, **kwargs):

@@ -23,7 +23,6 @@ def index(request):
     context['subtitle'] = '借用情形查詢'
     context['time_choices'] = Reservation.TIME_CHOICES
     context['room_choices'] = Reservation.ROOM_CHOICES
-    
 
     return render(request, 'index.html', context=context)
 
@@ -40,6 +39,12 @@ def book(request):
     context['subtitle'] = '借用'
     context['form'] = form
     return render(request, 'book.html', context)
+
+
+def modify(request):
+    context = {}
+    context['subtitle'] = '借用'
+    return render(request, 'modify.html', context)
 
 
 def comfirm(request):
@@ -88,15 +93,18 @@ def participants(request):
 def records(request):
     if request.user.is_authenticated:
         # user_filter = request.user
-        reservations = Reservation.objects.filter(organizer=request.user)
-        print(request.user, reservations)
+        host_reservations = Reservation.objects.filter(organizer=request.user)
+        invited_reservations = Reservation.objects.filter(
+            invitees=request.user)
     else:
+        print('non user')
         messages.error(
             request, "Unsuccessful user_filter.")
-        reservations = Reservation.objects.all()
     context = {}
     context['subtitle'] = '借用記錄查詢'
-    context['reservations'] = reservations
+    context['host_reservations'] = host_reservations
+    context['invited_reservations'] = invited_reservations
+
     return render(request, 'records.html', context=context)
 
 
@@ -124,7 +132,7 @@ def register(request):
 
 def report(request):
     print(request)
-    if request.method == "POST": 
+    if request.method == "POST":
         print("report")
         content = request.POST['content']
         unit = ErrorReport.objects.create(content=content)
