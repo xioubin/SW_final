@@ -35,3 +35,6 @@ class bookForm(forms.ModelForm):
     class Meta:
         model = Reservation
         fields = ("organizer", "date", "time", "room", "invitees", "title")
+
+class forgetForm(forms.Form):
+    email = forms.EmailField()

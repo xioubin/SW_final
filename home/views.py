@@ -1,9 +1,15 @@
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from .models import Reservation, User_Info
-from .form import RegisterForm, LoginForm, bookForm
+from .form import RegisterForm, LoginForm, bookForm, forgetForm
 from django.contrib import messages
 from django.views.generic.edit import FormView
+
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
+import random
+import string
 # Create your views here.
 
 # time_choices = ['8:00-9:00', '9:00-10:00', '10:00-11:00',
@@ -39,7 +45,36 @@ def comfirm(request):
 
 
 def forget(request):
-    return render(request, 'forget.html')
+    if request.user.is_authenticated:
+        return redirect('/home/')
+    if request.method == "POST":
+        form = forgetForm(data=request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            count=User_Info.objects.filter(email=email).count()
+            if count==1:
+                random_password = ''.join(random.sample(string.ascii_letters + string.digits, 8))
+                User_Info.objects.filter(email=email).update(password=random_password)
+                
+                #send_mail
+                subject = "Password reset notification"
+                message = "your password is changed to " + random_password
+                sender = settings.EMAIL_HOST_USER
+                recipient = [email]
+                send_mail(
+                    subject,
+                    message,
+                    sender,
+                    recipient
+                )
+                return redirect('/home/login/')
+            else:
+                print("this email address hasn't been registered.")
+    form=forgetForm()
+    context = {}
+    context['subtitle'] = '忘記密碼'
+    context['form'] = form
+    return render(request, 'forget.html',context)
 
 
 def home(request):
