@@ -1,17 +1,30 @@
-# SW_final
-### how to use this project
-`pip install -r requirements.txt`
-`python3 manage.py runserver`
-### use browser and enter:
-`https://127.0.0.1:8000/`
+# SW_Final
 
-### email api
-must include:
-`django.core.mail`
-api:
-`send_mail(subject, message, receive_list)`
-##### super admin account
+## To_Use
+### runserver
 ```
-admin@gmail.com
-admin
+//in your env
+python manage.py runserver
 ```
+### Address
+`http://localhost:8000`
+
+backend:
+`http://localhost:8000/admin`
+password
+User email:  `admin@gmail.com`
+Password  :    `admin`
+## ToDo
+
+### Mail
+    participant change
+    estimated reservation
+### Booking
+
+### Forget password
+
+### Error Report
+
+### Records
+
+### Participants
