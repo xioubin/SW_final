@@ -23,6 +23,7 @@ def index(request):
     context['subtitle'] = '借用情形查詢'
     context['time_choices'] = Reservation.TIME_CHOICES
     context['room_choices'] = Reservation.ROOM_CHOICES
+    
 
     return render(request, 'index.html', context=context)
 
