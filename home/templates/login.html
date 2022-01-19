@@ -10,7 +10,7 @@
       {% for field in form %}
         {{ field.errors }}
       {% endfor %}
-      <a type="submit">送出</a>
+      <button type="submit">送出</button>
       <a href="{% url 'register' %}">註冊</a>
       <a href="{% url 'forget' %}">忘記密碼</a>
     </form>
