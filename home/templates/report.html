@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-
+<br>
+<div id="calendar_text_2">
+    <form method="POST">
+        {% csrf_token %}
+        <label for="problem">Enter the problem you encountered: </label>
         <br>
-        <div id="calendar_text_2">
-        <form action="" mehtod="post">
-            <label for="problem">Enter the problem you encountered: </label>
-            <br>
-            <input id="problem" type="text">
-            <input type="submit" value="submit">
-        </form>
-    </div>
+        <input id="problem" type="text" name="content">
+        <button type="submit">送出</button>
+    </form>
+</div>
 {% endblock %}
+
