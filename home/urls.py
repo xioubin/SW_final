@@ -16,5 +16,5 @@ urlpatterns = [
     path('records/', views.records, name='records'),
     path('register/', views.register, name='register'),
     path('report/', views.report, name='report'),
-    # path('accounts/login/', views.user_login),
+    
 ]

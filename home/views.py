@@ -27,7 +27,7 @@ def index(request):
 
 def book(request):
     if request.method == "POST":
-        form = bookForm(request.POST,user=request.user)
+        form = bookForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
             # auth.login(request, user)
@@ -37,7 +37,6 @@ def book(request):
     context['subtitle'] = '借用'
     context['form'] = form
     return render(request, 'book.html', context)
-
 
 
 def comfirm(request):
@@ -51,12 +50,14 @@ def forget(request):
         form = forgetForm(data=request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email')
-            count=User_Info.objects.filter(email=email).count()
-            if count==1:
-                random_password = ''.join(random.sample(string.ascii_letters + string.digits, 8))
-                User_Info.objects.filter(email=email).update(password=random_password)
-                
-                #send_mail
+            count = User_Info.objects.filter(email=email).count()
+            if count == 1:
+                random_password = ''.join(random.sample(
+                    string.ascii_letters + string.digits, 8))
+                User_Info.objects.filter(email=email).update(
+                    password=random_password)
+
+                # send_mail
                 subject = "Password reset notification"
                 message = "your password is changed to " + random_password
                 sender = settings.EMAIL_HOST_USER
@@ -70,15 +71,11 @@ def forget(request):
                 return redirect('/home/login/')
             else:
                 print("this email address hasn't been registered.")
-    form=forgetForm()
+    form = forgetForm()
     context = {}
     context['subtitle'] = '忘記密碼'
     context['form'] = form
-    return render(request, 'forget.html',context)
-
-
-def home(request):
-    return render(request, 'home.html')
+    return render(request, 'forget.html', context)
 
 
 def participants(request):
@@ -105,7 +102,8 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            text = 'Hi! ' + form.cleaned_data.get('username') + '\nYou are successfully register booking system. Please remember your account and password.'
+            text = 'Hi! ' + form.cleaned_data.get(
+                'username') + '\nYou are successfully register booking system. Please remember your account and password.'
             mail = form.cleaned_data.get('email')
             send_mail('註冊成功通知', text, None, [mail])
             auth.login(request, user)
