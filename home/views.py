@@ -1,6 +1,8 @@
+from importlib.resources import contents
+import re
 from django.contrib import auth
 from django.shortcuts import render, redirect
-from .models import Reservation, User_Info
+from .models import Reservation, User_Info, ErrorReport
 from .form import RegisterForm, LoginForm, bookForm, forgetForm
 from django.contrib import messages
 from django.views.generic.edit import FormView
@@ -122,6 +124,12 @@ def register(request):
 
 
 def report(request):
+    print(request)
+    if request.method == "POST": 
+        print("report")
+        content = request.POST['content']
+        unit = ErrorReport.objects.create(content=content)
+        unit.save()
     context = {}
     context['subtitle'] = '錯誤回報'
     return render(request, 'report.html', context=context)
