@@ -4,16 +4,13 @@
 <!---->
 <table width="80%" height="100%" style="text-align:center;">
     <tr>
-        <td colspan="6"></td>
-    </tr>
-    <tr>
     
-        <td width="15%">&nbsp&nbsp</td>
-        <td width="17%" style='border-right:1px solid #000000'>ROOM 1</td>
-        <td width="17%" style='border-right:1px solid #000000'>ROOM 2</td>
-        <td width="17%" style='border-right:1px solid #000000'>ROOM 3</td>
-        <td width="17%" style='border-right:1px solid #000000'>ROOM 4</td>
-        <td width="17%">ROOM 5</td>
+        <th width="15%">&nbsp&nbsp</td>
+        <th width="17%" style='border-right:1px solid #000000'>ROOM 1</td>
+        <th width="17%" style='border-right:1px solid #000000'>ROOM 2</td>
+        <th width="17%" style='border-right:1px solid #000000'>ROOM 3</td>
+        <th width="17%" style='border-right:1px solid #000000'>ROOM 4</td>
+        <th width="17%">ROOM 5</td>
     </tr>
 
     {%for i,time_choice in time_choices%}
@@ -22,11 +19,14 @@
     </tr>
     <tr>
         <td width="15%" style='border-right:1px solid #000000'>{{time_choice}}</td>
-
         {%for room_choice in room_choices%}
-        <td width="17%" style='border-right:1px solid #000000'></td>
+        <td width="17%" style='border-right:1px solid #000000' timeid = {{time_choice}} roomid = {{room_choice}}>
+            <a href="{% url 'book' %}">Book</a>
+        </td>
         {%endfor%}
     </tr>
     {%endfor%}
 </table>
 {% endblock %}
+
+
