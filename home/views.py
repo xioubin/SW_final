@@ -19,25 +19,14 @@ import string
 
 
 def index(request):
-    form = IndexDateForm()
-
     if request.method == "POST":
-        form = IndexDateForm(request.POST)
-        if form.is_valid():
-            date = form.cleaned_data.get('date')
-            host_reservations = Reservation.objects.filter(
-                date=date)
-            print(host_reservations)
-            # print(date)
-            return redirect('/home/')
-        else:
-            print(form.errors)
+        date = request.POST['date']
+        print(date)
 
     context = {}
     context['subtitle'] = '借用情形查詢'
     context['time_choices'] = Reservation.TIME_CHOICES
     context['room_choices'] = Reservation.ROOM_CHOICES
-    context['form'] = form
 
     return render(request, 'index.html', context=context)
 
@@ -55,10 +44,10 @@ def book(request):
     context['form'] = form
     return render(request, 'book.html', context)
 
-    
+
 def modify(request):
     # display original reservation data
-    
+
     # update new one
     if request.method == "POST":
         form = ModifyForm(request.POST, user=request.user)
@@ -120,19 +109,21 @@ def participants(request):
 
 
 def records(request):
+    context = {}
+
     if request.user.is_authenticated:
         # user_filter = request.user
         host_reservations = Reservation.objects.filter(organizer=request.user)
         invited_reservations = Reservation.objects.filter(
             invitees=request.user)
+        context['host_reservations'] = host_reservations
+        context['invited_reservations'] = invited_reservations
     else:
         print('non user')
         messages.error(
             request, "Unsuccessful user_filter.")
     context = {}
     context['subtitle'] = '借用記錄查詢'
-    context['host_reservations'] = host_reservations
-    context['invited_reservations'] = invited_reservations
 
     return render(request, 'records.html', context=context)
 
@@ -183,8 +174,6 @@ def user_login(request):
 
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            user_check = User_Info.objects.get(email=email)
-            print(password, user_check.password)
 
             user = auth.authenticate(email=email, password=password)
             messages.success(request, "Login successful.")

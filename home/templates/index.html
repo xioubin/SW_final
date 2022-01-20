@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<form method="POST">
-<div id="calendar_text_2">請選擇會議室日期<br /> 
+<div id="calendar_text_2">請選擇會議室日期<br />
+<form id="chooseDate" action="{% url 'index' %}" method="POST">
     {% csrf_token %}
-    {{ form.date }}
-    <button type="submit">search</button>
-</div>
-
+    <input type="date" name="date" value="date" oninput='chooseDate.submit()'>
+    <noscript>
+        <input type="submit" value="Submit">
+    </noscript>
 </form>
+</div>
 
 <table width="80%" height="100%" style="text-align:center;">
     <tr>
