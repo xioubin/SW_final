@@ -66,12 +66,11 @@ def modify(request):
             form.save()
             # auth.login(request, user)
             return redirect('/home/')
-    date = request.GET.get('date')
-    time = request.GET.get('time')
-    room = request.GET.get('room')
-    print(date, time, room)
-    reservation = Reservation.objects.get(date=date, time=time, room=room)
-    form = ModifyForm(user=request.user)
+    auto_increment_id = request.GET.get('auto_increment_id')
+    print(auto_increment_id)
+    reservation = Reservation.objects.get(auto_increment_id=auto_increment_id)
+    print(reservation)
+    form = ModifyForm(instance=reservation)
     context = {}
     context['subtitle'] = '借用'
     context['form'] = form
