@@ -34,7 +34,6 @@ class bookForm(forms.ModelForm):
         super(bookForm, self).__init__(*args, **kwargs)
         if user is not None:
             self.fields['organizer'].initial = user
-    # organizer = forms.CharField()
     date = forms.DateField(widget=forms.DateInput(attrs={
         'type': 'date'}))
     invitees = forms.CheckboxSelectMultiple()
