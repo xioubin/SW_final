@@ -32,3 +32,8 @@ Password  :    `admin`
 ### Records
 
 ### Participants
+
+
+### Suggestion
+1. 頁面跳轉的防呆可以每個都跳到home之類的
+'ex:還沒登入的時候book 或者已經登入但又想跳至登入頁面(直接打網址)'
