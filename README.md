@@ -26,7 +26,7 @@ Password  :    `admin`
 3. 還沒登入的時候按book會error，看能不能接到登入頁面
 4. 按book的連結時會跳轉到借用頁面，但時間跟room都沒有預設值，要自己再填一次
 ### Forget password
-
+1. 新的密碼依舊不能登入
 ### Error Report
 
 ### Records
