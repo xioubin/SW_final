@@ -31,7 +31,7 @@ class User_InfoManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, username, password=None, is_staff=False, is_active=True):
-        return self.create_user(email, username, password, is_admin=True,  is_staff=is_staff, is_active=is_active)
+        return self.create_user(email=email, username=username, password=password, is_admin=True,  is_staff=is_staff, is_active=is_active)
 
 
 class User_Info(AbstractBaseUser, PermissionsMixin):
@@ -83,11 +83,13 @@ class Reservation(models.Model):
         User_Info
     )
 
+    # auto_increment_id = models.AutoField(primary_key=True)
+
     room = models.IntegerField(choices=ROOM_CHOICES)
 
     title = models.CharField(max_length=150)
 
-    date = models.DateTimeField()
+    date = models.DateField()
     time = models.IntegerField(choices=TIME_CHOICES)
 
     # class Meta:
