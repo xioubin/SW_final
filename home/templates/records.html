@@ -52,7 +52,8 @@
             <td>{{reservation.date}}</td>
             <td>{{reservation.get_time_display}}</td>
             <td>{{reservation.get_room_display }}</td>
-            <td><button ><a href="{% url 'modify' %}">修改</a></button>
+                        <td><button ><a href="{% url 'modify' %}?auto_increment_id={{reservation.auto_increment_id}}">修改</a></button>
+
             </tr> 
         {%endfor%}
         </tbody>

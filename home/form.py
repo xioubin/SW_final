@@ -40,6 +40,7 @@ class bookForm(forms.ModelForm):
             self.fields['room'].initial = room
         if date is not None:
             self.fields['date'].initial = date
+            print(date)
 
     date = forms.DateField(label='date', widget=forms.DateInput(attrs={
         'type': 'date'}))
@@ -53,10 +54,13 @@ class bookForm(forms.ModelForm):
 
 class ModifyForm(forms.ModelForm):
 
-    def __init__(self, *args, user=None, date=None, **kwargs):
+    def __init__(self, *args, date=None, **kwargs):
         super(ModifyForm, self).__init__(*args, **kwargs)
+        print('init', date)
         if date is not None:
             self.fields['date'].initial = date
+            print(date)
+
     date = forms.DateField(label='date', widget=forms.DateInput(attrs={
         'type': 'date'}))
     invitees = forms.CheckboxSelectMultiple()

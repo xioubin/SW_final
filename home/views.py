@@ -59,18 +59,19 @@ def book(request):
 
 
 def modify(request):
-    if request.method == "POST":
-        form = ModifyForm(request.POST, user=request.user)
+    auto_increment_id = request.GET.get('auto_increment_id')
 
+    reservation = Reservation.objects.get(auto_increment_id=auto_increment_id)
+
+    if request.method == "POST":
+        form = ModifyForm(request.POST, instance=reservation)
         if form.is_valid():
             form.save()
-            # auth.login(request, user)
-            return redirect('/home/')
-    auto_increment_id = request.GET.get('auto_increment_id')
+            return redirect('/home/records/')
     print(auto_increment_id)
-    reservation = Reservation.objects.get(auto_increment_id=auto_increment_id)
-    print(reservation)
-    form = ModifyForm(instance=reservation)
+    print(reservation, reservation.date)
+    form = ModifyForm(instance=reservation, date=reservation.date)
+
     context = {}
     context['subtitle'] = '借用'
     context['form'] = form
