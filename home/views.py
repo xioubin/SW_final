@@ -3,7 +3,7 @@ import re
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from .models import Reservation, User_Info, ErrorReport
-from .form import RegisterForm, LoginForm, bookForm, forgetForm, IndexDateForm
+from .form import ModifyForm, RegisterForm, LoginForm, bookForm, forgetForm, IndexDateForm
 from django.contrib import messages
 from django.views.generic.edit import FormView
 
@@ -55,11 +55,25 @@ def book(request):
     context['form'] = form
     return render(request, 'book.html', context)
 
-
+    
 def modify(request):
+    # display original reservation data
+    
+    # update new one
+    if request.method == "POST":
+        form = ModifyForm(request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            # auth.login(request, user)
+            return redirect('/home/')
+    form = ModifyForm(user=request.user)
     context = {}
     context['subtitle'] = '借用'
+    context['form'] = form
     return render(request, 'modify.html', context)
+    # context = {}
+    # context['subtitle'] = '借用'
+    # return render(request, 'modify.html', context)
 
 
 def comfirm(request):
