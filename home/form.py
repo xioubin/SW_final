@@ -32,7 +32,6 @@ class LoginForm(forms.Form):
 class bookForm(forms.ModelForm):
     def __init__(self, *args, user=None, time=None, room=None, date=None, **kwargs):
         super(bookForm, self).__init__(*args, **kwargs)
-        print(time, "1")
         if user is not None:
             self.fields['organizer'].initial = user
         if time is not None:

@@ -6,6 +6,8 @@ urlpatterns = [
     path('book/', views.book, name='book'),
     path('book/$', views.book, name='book'),
     path('modify/', views.modify, name='modify'),
+    path('modify/$', views.modify, name='modify'),
+
 
     path('comfirm/', views.comfirm, name='comfirm'),
     path('forget/', views.forget, name='forget'),
