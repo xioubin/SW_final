@@ -41,7 +41,7 @@
 <div id="calendar_text_2">請選擇會議室日期<br />
 <form id="chooseDate" action="{% url 'index' %}" method="POST">
     {% csrf_token %}
-    <input type="date" name="date" value="date" oninput='chooseDate.submit()'>
+    <input type="date" name="date" value="{{date}}" oninput='chooseDate.submit()'>
     <noscript>
         <input type="submit" value="Submit">
     </noscript>
@@ -66,7 +66,20 @@
             <td>{{time_choice}}</td>
             {%for room_choice_key,room_choice in room_choices%}
             <td timeid = {{time_choice}} roomid = {{room_choice}}>
-                <a href="{% url 'book' %}?date={{date}}&time={{time_choice_key}}&room={{room_choice_key}}">Book</a>
+                {%for reservation in reservations%}
+                    {% if reservation.time == time_choice_key and reservation.room == room_choice_key%}
+                        <a>Invalid</a>
+                    {% else %}
+                        <a href="{% url 'book' %}?date={{date}}&time={{time_choice_key}}&room={{room_choice_key}}">Book</a>
+
+                    {% endif %}
+
+                    
+
+                {%endfor%}
+                {% if reservations|length == 0 %}
+                        <a href="{% url 'book' %}?date={{date}}&time={{time_choice_key}}&room={{room_choice_key}}">Book</a>
+                {% endif %}
             </td>
             {%endfor%}
         </tr>

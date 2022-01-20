@@ -1,11 +1,10 @@
-from importlib.resources import contents
-import re
+from django.db.models import Q
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from .models import Reservation, User_Info, ErrorReport
 from .form import ModifyForm, RegisterForm, LoginForm, bookForm, forgetForm, IndexDateForm
 from django.contrib import messages
-from django.views.generic.edit import FormView
+import datetime
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -23,12 +22,21 @@ def index(request):
         date = request.POST['date']
         print(date)
     else:
-        date = None
+        date = datetime.datetime.now().date()
     context = {}
     context['subtitle'] = '借用情形查詢'
     context['time_choices'] = Reservation.TIME_CHOICES
     context['room_choices'] = Reservation.ROOM_CHOICES
     context['date'] = date
+    reservations = Reservation.objects.filter(date=date)
+    context['reservations'] = reservations
+
+    # invalids = [[False for _ in range(
+    #     len(context['time_choices']))] for _ in range(len(context['room_choices']))]
+    # for reservation in reservations:
+    #     invalids[reservation.time][reservation.room] = True
+
+    # context['invalids'] = invalids
     return render(request, 'index.html', context=context)
 
 
