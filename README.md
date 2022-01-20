@@ -24,7 +24,7 @@ Password  :    `admin`
 'Cannot assign "'b10830015@gapps.ntust.edu.tw'": "Reservation.organizer" must be a "User_Info" instance.'
 2. 我看後台有借用紀錄，但借用情形查詢好像沒顯示出來
 3. 還沒登入的時候按book會error，看能不能接到登入頁面
-4. 按book的連結時會跳轉到借用頁面，但時間跟room都沒有預設
+4. 按book的連結時會跳轉到借用頁面，但時間跟room都沒有預設值，要自己再填一次
 ### Forget password
 
 ### Error Report
