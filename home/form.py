@@ -30,13 +30,46 @@ class LoginForm(forms.Form):
 
 
 class bookForm(forms.ModelForm):
-    def __init__(self, *args, user=None,time=None, **kwargs):
+    def __init__(self, *args, user=None,time=None,room=None,date=None, **kwargs):
         super(bookForm, self).__init__(*args, **kwargs)
+        print(time,"1")
         if user is not None:
             self.fields['organizer'].initial = user
         if time is not None:
-            print(time)
-            self.fields['time'].initial = time
+            print(time,"2")
+            if time=="8-9":
+                timeid = 0
+            if time=="9-10":
+                timeid = 1
+            if time=="10-11":
+                timeid = 2     
+            if time=="11-12":
+                timeid = 3
+            if time=="12-13":
+                timeid = 4
+            if time=="13-14":
+                timeid = 5
+            if time=="14-15":
+                timeid = 6
+            if time=="15-16":
+                timeid = 7
+            if time=="16-17":
+                timeid = 8
+            self.fields['time'].initial = timeid
+        if room is not None:
+            if room =="(0, 'ROOM 1')":
+                roomid=0
+            if room =="(1, 'ROOM 2')":
+                roomid=1
+            if room =="(2, 'ROOM 3')":
+                roomid=2
+            if room =="(3, 'ROOM 4')":
+                roomid=3
+            if room =="(4, 'ROOM 5')":
+                roomid=4
+            self.fields['room'].initial = roomid
+        if date is not None:
+            self.fields['date'].initial = date
 
     date = forms.DateField(widget=forms.DateInput(attrs={
         'type': 'date'}))

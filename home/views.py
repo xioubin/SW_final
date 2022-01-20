@@ -22,12 +22,13 @@ def index(request):
     if request.method == "POST":
         date = request.POST['date']
         print(date)
-
+    else:
+        date=None
     context = {}
     context['subtitle'] = '借用情形查詢'
     context['time_choices'] = Reservation.TIME_CHOICES
     context['room_choices'] = Reservation.ROOM_CHOICES
-
+    context['date']=date
     return render(request, 'index.html', context=context)
 
 
@@ -37,15 +38,16 @@ def book(request):
     room=request.GET.get('room')
     # print(date)
     # print(time)
-    # print(room)
-    if request.method == "POST":
-        form = bookForm(request.POST, user=request.user,time=time)
-        if form.is_valid():
-            form.save()
-            # auth.login(request, user)
-            return redirect('/home/')
+    print(room)
+    form = bookForm(request.POST, user=request.user,time=time,room=room,date=date)
+    # if request.method == "POST":
+    #     form = bookForm(request.POST, user=request.user,time=time)
+    if form.is_valid():
+        form.save()
+        # auth.login(request, user)            
+        return redirect('/home/')
     
-    form = bookForm(user=request.user)
+    form = bookForm(user=request.user,time=time,room=room,date=date)
     context = {}
     context['subtitle'] = '借用'
     context['form'] = form
