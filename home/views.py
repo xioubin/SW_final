@@ -200,7 +200,10 @@ def user_login(request):
                 print('login2')
 
                 auth.login(request, user)
-                return redirect('/home/')
+                next = request.GET.get('next')
+                if next is None:
+                    next = '/home/'
+                return redirect(next)
             else:
                 print(user)
                 messages.error(request, 'user not found')
