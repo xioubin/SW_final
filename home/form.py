@@ -33,8 +33,8 @@ class bookForm(forms.ModelForm):
     def __init__(self, *args, user=None, **kwargs):
         super(bookForm, self).__init__(*args, **kwargs)
         if user is not None:
-            self.fields['organizer'].initial = user.email
-    organizer = forms.CharField()
+            self.fields['organizer'].initial = user
+    # organizer = forms.CharField()
     date = forms.DateField(widget=forms.DateInput(attrs={
         'type': 'date'}))
     invitees = forms.CheckboxSelectMultiple()
@@ -44,8 +44,9 @@ class bookForm(forms.ModelForm):
         model = Reservation
         fields = ("organizer", "date", "time", "room", "invitees", "title")
 
+
 class ModifyForm(forms.ModelForm):
-    
+
     def __init__(self, *args, user=None, **kwargs):
         super(ModifyForm, self).__init__(*args, **kwargs)
         if user is not None:
@@ -59,6 +60,7 @@ class ModifyForm(forms.ModelForm):
     class Meta:
         model = Reservation
         fields = ("organizer", "date", "time", "room", "invitees", "title")
+
 
 class forgetForm(forms.Form):
     email = forms.EmailField()
