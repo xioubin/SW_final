@@ -112,18 +112,21 @@ def records(request):
     context = {}
 
     if request.user.is_authenticated:
-        # user_filter = request.user
         host_reservations = Reservation.objects.filter(organizer=request.user)
         invited_reservations = Reservation.objects.filter(
             invitees=request.user)
-        context['host_reservations'] = host_reservations
-        context['invited_reservations'] = invited_reservations
+
     else:
+        host_reservations = None
+        invited_reservations = None
+
         print('non user')
         messages.error(
             request, "Unsuccessful user_filter.")
     context = {}
     context['subtitle'] = '借用記錄查詢'
+    context['host_reservations'] = host_reservations
+    context['invited_reservations'] = invited_reservations
 
     return render(request, 'records.html', context=context)
 

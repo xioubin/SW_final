@@ -1,48 +1,73 @@
 {% extends "base.html" %}
+
 {% block content %}
+    <style type="text/css">
     
-    <table width="100%">HOST
-        <tr>
-            <td colspan="5"></td>
-        </tr>
-        <tr>
-            <td>會議名稱</td>
-            <td>日期</td>
-            <td>時間</td>
-            <td>會議室</td>
-            <td>&nbsp</td>
-        </tr>
-        <tr bgcolor="green">
-            <td colspan="5"></td>
-        </tr>
+    table{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    }
+    td {
+    padding: 12px 15px;
+    }
+    tr {
+    border-bottom: 1px solid #dddddd;
+    }
+    tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+    tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+    tr.active-row {
+        font-weight: bold;
+        color: #009879;
+    }
+
+    </style>
+    <table width="100%" class="center">
+        <thead>
+            <tr>
+                <th>會議名稱</th>
+                <th>日期</th>
+                <th>時間</th>
+                <th>會議室</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
         {%for reservation in host_reservations%}
             <tr>
             <td>{{reservation.title}}</td>
             <td>{{reservation.date}}</td>
             <td>{{reservation.get_time_display}}</td>
             <td>{{reservation.get_room_display }}</td>
-            <td><button ><a href="{% url 'modify' %}">會議修改</a></button>
+            <td><button ><a href="{% url 'modify' %}">修改</a></button>
             </tr> 
-            <tr bgcolor="green">
-                <td colspan="5"></td>
-            </tr>
         {%endfor%}
+        </tbody>
     </table>
 
     <table width="100%">
+        <thead>
         <tr>
-            <td colspan="5"></td>
+            <th>會議名稱</th>
+            <th>日期</th>
+            <th>時間</th>
+            <th>會議室</th>
+            <th>操作</th>
         </tr>
-        <tr>
-            <td>會議名稱</td>
-            <td>日期</td>
-            <td>時間</td>
-            <td>會議室</td>
-            <td>&nbsp</td>
-        </tr>
-        <tr bgcolor="green">
-            <td colspan="5"></td>
-        </tr>
+        </thead>
+        <tbody>
         {%for reservation in invited_reservations%}
             <tr>
             <td>{{reservation.title}}</td>
@@ -52,9 +77,8 @@
             <td><button ><a href="{% url 'modify' %}">參與</a></button>
             {% comment %} <td><button ><a href="{% url 'modify' %}">不參與</a></button> {% endcomment %}
             </tr>
-            <tr bgcolor="green">
-                <td colspan="5"></td>
-            </tr>
         {%endfor%}
+        </tbody>
     </table>
 {% endblock %}
+
