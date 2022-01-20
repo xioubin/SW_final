@@ -1,5 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
+<style type="text/css">
+    
+    table{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    caption{
+        font-size: 2em;
+    }
+    thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    }
+    td {
+    padding: 12px 15px;
+    border:1px solid #dddddd;
+    }
+    tr {
+    border-bottom: 1px solid #dddddd;
+    }
+    tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+    tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+    tr.active-row {
+        font-weight: bold;
+        color: #009879;
+    }
+
+    </style>
+
 <div id="calendar_text_2">請選擇會議室日期<br />
 <form id="chooseDate" action="{% url 'index' %}" method="POST">
     {% csrf_token %}
@@ -10,30 +48,31 @@
 </form>
 </div>
 
-<table width="100%" height="100%" style="text-align:center;">
-    <tr>
-    
-        <th width="15%">&nbsp&nbsp</td>
-        <th width="17%" style='border-right:1px solid #000000'>ROOM 1</td>
-        <th width="17%" style='border-right:1px solid #000000'>ROOM 2</td>
-        <th width="17%" style='border-right:1px solid #000000'>ROOM 3</td>
-        <th width="17%" style='border-right:1px solid #000000'>ROOM 4</td>
-        <th width="17%">ROOM 5</td>
-    </tr>
+<table width="100%" height="75%" >
+    <thead>
+        <tr>
+            <th>&nbsp</th>
+            <th>ROOM 1</th>
+            <th>ROOM 2</th>
+            <th>ROOM 3</th>
+            <th>ROOM 4</th>
+            <th>ROOM 5</th>
+        </tr>
+    </thead>
 
-    {%for time_choice_key,time_choice in time_choices%}
-    <tr bgcolor="green" style="height: 1;">
-        <td colspan="6"></td>
-    </tr>
-    <tr>
-        <td width="15%" style='border-right:1px solid #000000'>{{time_choice}}</td>
-        {%for room_choice_key,room_choice in room_choices%}
-        <td width="17%" style='border-right:1px solid #000000' timeid = {{time_choice}} roomid = {{room_choice}}>
-            <a href="{% url 'book' %}?date={{date}}&time={{time_choice_key}}&room={{room_choice_key}}">Book</a>
-        </td>
+    <tbody>
+        {%for time_choice_key,time_choice in time_choices%}
+        <tr>
+            <td>{{time_choice}}</td>
+            {%for room_choice_key,room_choice in room_choices%}
+            <td timeid = {{time_choice}} roomid = {{room_choice}}>
+                <a href="{% url 'book' %}?date={{date}}&time={{time_choice_key}}&room={{room_choice_key}}">Book</a>
+            </td>
+            {%endfor%}
+        </tr>
         {%endfor%}
-    </tr>
-    {%endfor%}
+    </tbody>
+
 </table>
 {% endblock %}
 
