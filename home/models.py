@@ -83,7 +83,7 @@ class Reservation(models.Model):
         User_Info
     )
 
-    # auto_increment_id = models.AutoField(primary_key=True)
+    auto_increment_id = models.AutoField(primary_key=True)
 
     room = models.IntegerField(choices=ROOM_CHOICES)
 
