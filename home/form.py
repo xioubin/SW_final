@@ -30,10 +30,14 @@ class LoginForm(forms.Form):
 
 
 class bookForm(forms.ModelForm):
-    def __init__(self, *args, user=None, **kwargs):
+    def __init__(self, *args, user=None,time=None, **kwargs):
         super(bookForm, self).__init__(*args, **kwargs)
         if user is not None:
             self.fields['organizer'].initial = user
+        if time is not None:
+            print(time)
+            self.fields['time'].initial = time
+
     date = forms.DateField(widget=forms.DateInput(attrs={
         'type': 'date'}))
     invitees = forms.CheckboxSelectMultiple()

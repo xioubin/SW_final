@@ -32,17 +32,25 @@ def index(request):
 
 
 def book(request):
+    date=request.GET.get('date')
+    time=request.GET.get('time')
+    room=request.GET.get('room')
+    # print(date)
+    # print(time)
+    # print(room)
     if request.method == "POST":
-        form = bookForm(request.POST, user=request.user)
+        form = bookForm(request.POST, user=request.user,time=time)
         if form.is_valid():
             form.save()
             # auth.login(request, user)
             return redirect('/home/')
+    
     form = bookForm(user=request.user)
     context = {}
     context['subtitle'] = '借用'
     context['form'] = form
     return render(request, 'book.html', context)
+
 
 
 def modify(request):
