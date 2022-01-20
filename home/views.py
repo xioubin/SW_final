@@ -59,15 +59,18 @@ def book(request):
 
 
 def modify(request):
-    # display original reservation data
-
-    # update new one
     if request.method == "POST":
         form = ModifyForm(request.POST, user=request.user)
+
         if form.is_valid():
             form.save()
             # auth.login(request, user)
             return redirect('/home/')
+    date = request.GET.get('date')
+    time = request.GET.get('time')
+    room = request.GET.get('room')
+    print(date, time, room)
+    reservation = Reservation.objects.get(date=date, time=time, room=room)
     form = ModifyForm(user=request.user)
     context = {}
     context['subtitle'] = '借用'
