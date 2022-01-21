@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 class User_InfoManager(BaseUserManager):
     use_in_migration = True
 
-    def create_user(self, email, username, password, is_admin=False, is_staff=False, is_active=True):
+    def create_user(self, email, username, password, is_superuser=False, is_staff=False, is_active=True, **other_fields):
         if not email:
             raise ValueError("User must have an email")
         if not password:
@@ -21,17 +21,17 @@ class User_InfoManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email)
         )
+        print()
         user.username = username
         user.set_password(password)  # change password to hash
-        user.admin = is_admin
-        user.is_superuser = is_admin
-        user.staff = is_staff
-        user.active = is_active
+        user.is_superuser = is_superuser
+        user.is_staff = is_staff
+        user.is_active = is_active
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, password=None, is_staff=False, is_active=True):
-        return self.create_user(email, username, password, is_admin=True,  is_staff=is_staff, is_active=is_active)
+    def create_superuser(self, email, username, password=None,  **other_fields):
+        return self.create_user(email=email, username=username, password=password, is_superuser=True,  is_staff=True, is_active=True, **other_fields)
 
 
 class User_Info(AbstractBaseUser, PermissionsMixin):
@@ -70,8 +70,8 @@ class Reservation(models.Model):
         (3, "11-12"),
         (4, "12-13"),
         (5, "13-14"),
-        (1, "14-15"),
-        (2, "16-17")
+        (6, "14-15"),
+        (7, "16-17")
     ]
 
     organizer = models.ForeignKey(
@@ -83,11 +83,13 @@ class Reservation(models.Model):
         User_Info
     )
 
+    auto_increment_id = models.AutoField(primary_key=True)
+
     room = models.IntegerField(choices=ROOM_CHOICES)
 
     title = models.CharField(max_length=150)
 
-    date = models.DateTimeField()
+    date = models.DateField()
     time = models.IntegerField(choices=TIME_CHOICES)
 
     # class Meta:

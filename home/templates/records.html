@@ -11,9 +11,6 @@
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     }
-    caption{
-        font-size: 2em;
-    }
     thead tr {
     background-color: #009879;
     color: #ffffff;
@@ -55,7 +52,10 @@
             <td>{{reservation.date}}</td>
             <td>{{reservation.get_time_display}}</td>
             <td>{{reservation.get_room_display }}</td>
-            <td><button ><a href="{% url 'modify' %}">修改</a></button>
+            <td>
+                <button ><a href="{% url 'modify' %}?auto_increment_id={{reservation.auto_increment_id}}">修改</a></button>
+                <button ><a href="{% url 'delete' %}?auto_increment_id={{reservation.auto_increment_id}}">取消</a></button>
+            </td>
             </tr> 
         {%endfor%}
         </tbody>
@@ -79,7 +79,7 @@
             <td>{{reservation.date}}</td>
             <td>{{reservation.get_time_display}}</td>
             <td>{{reservation.get_room_display }}</td>
-            <td><button ><a href="{% url 'modify' %}">參與</a></button>
+            <td><button ><a>您為與會者</a></button>
             {% comment %} <td><button ><a href="{% url 'modify' %}">不參與</a></button> {% endcomment %}
             </tr>
         {%endfor%}

@@ -11,8 +11,10 @@
         {{ field.errors }}
       {% endfor %}
       <button type="submit">送出</button>
-      <a href="{% url 'register' %}">註冊</a>
-      <a href="{% url 'forget' %}">忘記密碼</a>
+      <button ><a href="{% url 'register' %}">註冊</a></button>
+      <button ><a href="{% url 'forget' %}">忘記密碼</a></button>
+
+      
     </form>
   </div>
 {% endblock %}

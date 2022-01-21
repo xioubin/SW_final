@@ -74,6 +74,8 @@ WSGI_APPLICATION = 'rooming.wsgi.application'
 
 AUTH_USER_MODEL = 'home.User_Info'
 
+LOGIN_URL = '/home/login'
+
 # AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
 #                            'home.authenticate.CustomerAuthenticationBackend']
 

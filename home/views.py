@@ -1,11 +1,10 @@
-from importlib.resources import contents
-import re
+from django.db.models import Q
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from .models import Reservation, User_Info, ErrorReport
 from .form import ModifyForm, RegisterForm, LoginForm, bookForm, forgetForm, IndexDateForm
 from django.contrib import messages
-from django.views.generic.edit import FormView
+import datetime
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -23,56 +22,96 @@ def index(request):
         date = request.POST['date']
         print(date)
     else:
-        date=None
+        date = datetime.datetime.now().date()
     context = {}
     context['subtitle'] = '借用情形查詢'
     context['time_choices'] = Reservation.TIME_CHOICES
     context['room_choices'] = Reservation.ROOM_CHOICES
-    context['date']=date
+    context['date'] = date
+    reservations = Reservation.objects.filter(date=date)
+    context['reservations'] = reservations
+
+    htmls = ""
+
+    invalid = False
+
+    for i, time_choice in context['time_choices']:
+        htmls += f"<tr><td class='centerText'>{time_choice}</td>"
+        for j, room_choice in context['room_choices']:
+
+            htmls += f"<td timeid = {time_choice} roomid = {room_choice}>"
+
+            invalid = False
+            for reservation in reservations:
+                # print(reservation.time, i)
+                if(reservation.time == i and reservation.room == j):
+                    invalid = True
+
+            if(invalid):
+                htmls += "<a class='centerText'>Invalid</a>"
+            else:
+                # htmls += "<a class='centerText'>Valid</a>"
+
+                htmls += f"<a class='centerText' href='/home/book/?date={str(date)}&time={i}&room={j}'>Book</a>"
+            htmls += "</td>"
+        htmls += "</td></tr>"
+
+    context['htmls'] = htmls
     return render(request, 'index.html', context=context)
 
 
 def book(request):
-    date=request.GET.get('date')
-    time=request.GET.get('time')
-    room=request.GET.get('room')
-    # print(date)
-    # print(time)
-    print(room)
-    form = bookForm(request.POST, user=request.user,time=time,room=room,date=date)
-    # if request.method == "POST":
-    #     form = bookForm(request.POST, user=request.user,time=time)
-    if form.is_valid():
-        form.save()
-        # auth.login(request, user)            
-        return redirect('/home/')
-    
-    form = bookForm(user=request.user,time=time,room=room,date=date)
+
+    if request.method == "POST":
+        form = bookForm(request.POST, user=request.user)
+        if form.is_valid():
+            text = 'You successfully reservated a meeting room. Please remember your meeting time.\nYour have reservated: ' + \
+                request.POST.get(
+                    'date') + ' at ' + Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] + '\n'
+            mail = request.user
+            send_mail('借用成功通知', text, None, [mail])
+            send_mail('會議邀請通知', 'You have been invited to a meeting at ' + Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] + ' Please check on your calander.', None, form.cleaned_data.get('invitees'))
+            form.save()
+            return redirect('/home/')
+    date = request.GET.get('date')
+    time = request.GET.get('time')
+    room = request.GET.get('room')
+    form = bookForm(user=request.user, time=time, room=room, date=date)
     context = {}
     context['subtitle'] = '借用'
     context['form'] = form
     return render(request, 'book.html', context)
 
 
-
 def modify(request):
-    # display original reservation data
+    auto_increment_id = request.GET.get('auto_increment_id')
 
-    # update new one
+    reservation = Reservation.objects.get(auto_increment_id=auto_increment_id)
+
     if request.method == "POST":
-        form = ModifyForm(request.POST, user=request.user)
+        form = ModifyForm(request.POST, instance=reservation)
         if form.is_valid():
+            print(form.cleaned_data)
+            send_mail('更改會議成功', 'Your reservation has been changed to '+ Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] +'. Please check on your calander.', None, form.cleaned_data.get('invitees'))
+            send_mail('更改會議成功', 'Your reservation has been changed to '+ Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] +'. Please check on your calander.', None, [form.cleaned_data.get('organizer')])
             form.save()
-            # auth.login(request, user)
-            return redirect('/home/')
-    form = ModifyForm(user=request.user)
+            return redirect('/home/records/')
+    print(auto_increment_id)
+    print(reservation, reservation.date)
+    form = ModifyForm(instance=reservation, date=reservation.date)
+
     context = {}
     context['subtitle'] = '借用'
     context['form'] = form
     return render(request, 'modify.html', context)
-    # context = {}
-    # context['subtitle'] = '借用'
-    # return render(request, 'modify.html', context)
+
+
+def delete(request):
+    auto_increment_id = request.GET.get('auto_increment_id')
+    send_mail('會議取消通知', 'Your meeting has been cancelled. Please check on your calander. ', None, Reservation.objects.filter('invitees'))
+    Reservation.objects.filter(auto_increment_id=auto_increment_id).delete()
+    send_mail('會議取消通知', 'Your meeting has been cancelled. Please check on your calander. ', None, [request.user])
+    return redirect('/home/records/')
 
 
 def comfirm(request):
@@ -90,8 +129,10 @@ def forget(request):
             if count == 1:
                 random_password = ''.join(random.sample(
                     string.ascii_letters + string.digits, 8))
-                User_Info.objects.filter(email=email).update(
-                    password=random_password)
+                print(random_password)
+                user = User_Info.objects.get(email=email)
+                user.set_password(random_password)
+                user.save()
 
                 # send_mail
                 subject = "Password reset notification"
@@ -194,7 +235,10 @@ def user_login(request):
                 print('login2')
 
                 auth.login(request, user)
-                return redirect('/home/')
+                next = request.GET.get('next')
+                if next is None:
+                    next = '/home/'
+                return redirect(next)
             else:
                 print(user)
                 messages.error(request, 'user not found')
