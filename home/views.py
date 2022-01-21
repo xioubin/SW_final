@@ -95,9 +95,6 @@ def modify(request):
     context['subtitle'] = '借用'
     context['form'] = form
     return render(request, 'modify.html', context)
-    # context = {}
-    # context['subtitle'] = '借用'
-    # return render(request, 'modify.html', context)
 
 
 def delete(request):
@@ -121,8 +118,10 @@ def forget(request):
             if count == 1:
                 random_password = ''.join(random.sample(
                     string.ascii_letters + string.digits, 8))
-                User_Info.objects.filter(email=email).update(
-                    password=random_password)
+                print(random_password)
+                user = User_Info.objects.get(email=email)
+                user.set_password(random_password)
+                user.save()
 
                 # send_mail
                 subject = "Password reset notification"
