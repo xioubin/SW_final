@@ -33,7 +33,8 @@ def index(request):
 
     htmls = ""
 
-    invalids = []
+    invalid = False
+
     for i, time_choice in context['time_choices']:
         htmls += f"<tr><td class='centerText'>{time_choice}</td>"
         for j, room_choice in context['room_choices']:
@@ -54,8 +55,6 @@ def index(request):
                 htmls += f"<a class='centerText' href='/home/book/?date={str(date)}&time={i}&room={j}'>Book</a>"
             htmls += "</td>"
         htmls += "</td></tr>"
-    context['invalids'] = invalids
-    print(invalids)
 
     context['htmls'] = htmls
     return render(request, 'index.html', context=context)
@@ -67,7 +66,6 @@ def book(request):
         form = bookForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
-            # auth.login(request, user)
             return redirect('/home/')
     date = request.GET.get('date')
     time = request.GET.get('time')
