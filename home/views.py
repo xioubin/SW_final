@@ -93,7 +93,7 @@ def modify(request):
         if form.is_valid():
             print(form.cleaned_data)
             send_mail('更改會議成功', 'Your reservation has been changed to '+ Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] +'. Please check on your calander.', None, form.cleaned_data.get('invitees'))
-
+            send_mail('更改會議成功', 'Your reservation has been changed to '+ Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] +'. Please check on your calander.', None, [form.cleaned_data.get('organizer')])
             form.save()
             return redirect('/home/records/')
     print(auto_increment_id)
@@ -108,9 +108,9 @@ def modify(request):
 
 def delete(request):
     auto_increment_id = request.GET.get('auto_increment_id')
+    send_mail('會議取消通知', 'Your meeting has been cancelled. Please check on your calander. ', None, Reservation.objects.filter('invitees'))
     Reservation.objects.filter(auto_increment_id=auto_increment_id).delete()
-    send_mail('會議取消通知', 'Your meeting has been cancelled. Please check on your calander. ', None, [
-              request.user])
+    send_mail('會議取消通知', 'Your meeting has been cancelled. Please check on your calander. ', None, [request.user])
     return redirect('/home/records/')
 
 
