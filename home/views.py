@@ -31,12 +31,33 @@ def index(request):
     reservations = Reservation.objects.filter(date=date)
     context['reservations'] = reservations
 
-    # invalids = [[False for _ in range(
-    #     len(context['time_choices']))] for _ in range(len(context['room_choices']))]
-    # for reservation in reservations:
-    #     invalids[reservation.time][reservation.room] = True
+    htmls = ""
 
-    # context['invalids'] = invalids
+    invalids = []
+    for i, time_choice in context['time_choices']:
+        htmls += f"<tr><td class='centerText'>{time_choice}</td>"
+        for j, room_choice in context['room_choices']:
+
+            htmls += f"<td timeid = {time_choice} roomid = {room_choice}>"
+
+            invalid = False
+            for reservation in reservations:
+                # print(reservation.time, i)
+                if(reservation.time == i and reservation.room == j):
+                    invalid = True
+
+            if(invalid):
+                htmls += "<a class='centerText'>Invalid</a>"
+            else:
+                # htmls += "<a class='centerText'>Valid</a>"
+
+                htmls += f"<a class='centerText' href='/home/book/?date={str(date)}&time={i}&room={j}'>Book</a>"
+            htmls += "</td>"
+        htmls += "</td></tr>"
+    context['invalids'] = invalids
+    print(invalids)
+
+    context['htmls'] = htmls
     return render(request, 'index.html', context=context)
 
 
@@ -81,9 +102,12 @@ def modify(request):
     context['subtitle'] = '借用'
     context['form'] = form
     return render(request, 'modify.html', context)
-    # context = {}
-    # context['subtitle'] = '借用'
-    # return render(request, 'modify.html', context)
+
+
+def delete(request):
+    auto_increment_id = request.GET.get('auto_increment_id')
+    Reservation.objects.filter(auto_increment_id=auto_increment_id).delete()
+    return redirect('/home/records/')
 
 
 def comfirm(request):
@@ -101,8 +125,10 @@ def forget(request):
             if count == 1:
                 random_password = ''.join(random.sample(
                     string.ascii_letters + string.digits, 8))
-                User_Info.objects.filter(email=email).update(
-                    password=random_password)
+                print(random_password)
+                user = User_Info.objects.get(email=email)
+                user.set_password(random_password)
+                user.save()
 
                 # send_mail
                 subject = "Password reset notification"

@@ -42,7 +42,7 @@ class bookForm(forms.ModelForm):
             self.fields['date'].initial = date
             print(date)
 
-    date = forms.DateField(label='date', widget=forms.DateInput(attrs={
+    date = forms.DateField(label='date', widget=forms.DateInput(format='%Y-%m-%d', attrs={
         'type': 'date'}))
     invitees = forms.CheckboxSelectMultiple()
     # shift
@@ -61,7 +61,7 @@ class ModifyForm(forms.ModelForm):
             self.fields['date'].initial = date
             print(date)
 
-    date = forms.DateField(label='date', widget=forms.DateInput(attrs={
+    date = forms.DateField(label='date', widget=forms.DateInput(format='%Y-%m-%d', attrs={
         'type': 'date'}))
     invitees = forms.CheckboxSelectMultiple()
     # shift

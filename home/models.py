@@ -70,8 +70,8 @@ class Reservation(models.Model):
         (3, "11-12"),
         (4, "12-13"),
         (5, "13-14"),
-        (1, "14-15"),
-        (2, "16-17")
+        (6, "14-15"),
+        (7, "16-17")
     ]
 
     organizer = models.ForeignKey(

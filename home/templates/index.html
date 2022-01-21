@@ -61,29 +61,7 @@
     </thead>
 
     <tbody>
-        {%for time_choice_key,time_choice in time_choices%}
-        <tr>
-            <td class="centerText">{{time_choice}}</td>
-            {%for room_choice_key,room_choice in room_choices%}
-            <td timeid = {{time_choice}} roomid = {{room_choice}}>
-                {%for reservation in reservations%}
-                    {% if reservation.time == time_choice_key and reservation.room == room_choice_key%}
-                        <a class="centerText">Invalid</a>
-                    {% else %}
-                        <a class="centerText" href="{% url 'book' %}?date={{date}}&time={{time_choice_key}}&room={{room_choice_key}}">Book</a>
-
-                    {% endif %}
-
-                    
-
-                {%endfor%}
-                {% if reservations|length == 0 %}
-                        <a class="centerText" href="{% url 'book' %}?date={{date}}&time={{time_choice_key}}&room={{room_choice_key}}">Book</a>
-                {% endif %}
-            </td>
-            {%endfor%}
-        </tr>
-        {%endfor%}
+        {{htmls|safe}}
     </tbody>
 
 </table>
