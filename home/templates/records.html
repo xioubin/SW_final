@@ -52,8 +52,10 @@
             <td>{{reservation.date}}</td>
             <td>{{reservation.get_time_display}}</td>
             <td>{{reservation.get_room_display }}</td>
-                        <td><button ><a href="{% url 'modify' %}?auto_increment_id={{reservation.auto_increment_id}}">修改</a></button>
-
+            <td>
+                <button ><a href="{% url 'modify' %}?auto_increment_id={{reservation.auto_increment_id}}">修改</a></button>
+                <button ><a href="{% url 'delete' %}?auto_increment_id={{reservation.auto_increment_id}}">取消</a></button>
+            </td>
             </tr> 
         {%endfor%}
         </tbody>
@@ -77,7 +79,7 @@
             <td>{{reservation.date}}</td>
             <td>{{reservation.get_time_display}}</td>
             <td>{{reservation.get_room_display }}</td>
-            <td><button ><a>參與</a></button>
+            <td><button ><a>您為與會者</a></button>
             {% comment %} <td><button ><a href="{% url 'modify' %}">不參與</a></button> {% endcomment %}
             </tr>
         {%endfor%}

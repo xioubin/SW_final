@@ -6,8 +6,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('book/', login_required(views.book), name='book'),
     path('book/$', login_required(views.book), name='book'),
-    path('modify/', login_required(views.modify), name='modify'),
     path('modify/$', login_required(views.modify), name='modify'),
+    path('delete/$', login_required(views.delete), name='delete'),
     path('records/', login_required(views.records), name='records'),
 
 

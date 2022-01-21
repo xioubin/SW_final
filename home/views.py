@@ -100,6 +100,12 @@ def modify(request):
     # return render(request, 'modify.html', context)
 
 
+def delete(request):
+    auto_increment_id = request.GET.get('auto_increment_id')
+    Reservation.objects.filter(auto_increment_id=auto_increment_id).delete()
+    return redirect('/home/records/')
+
+
 def comfirm(request):
     return render(request, 'comfirm.html')
 
