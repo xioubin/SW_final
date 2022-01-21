@@ -70,7 +70,7 @@ def book(request):
                     'date') + ' at ' + Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] + '\n'
             mail = request.user
             send_mail('借用成功通知', text, None, [mail])
-            send_mail('會議邀請通知', 'You have been invited to a meeting at ' + Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] + ' Please check on your calander.', None, form.cleaned_data.get('invitees'))
+            send_mail('會議邀請通知', 'You have been invited to a meeting at ' + request.POST.get('date') + ' ' + Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] + ' at '+ Reservation.ROOM_CHOICES[int(request.POST.get('room'))][1]+' Please check on your calander.', None, form.cleaned_data.get('invitees'))
             form.save()
             return redirect('/home/')
     date = request.GET.get('date')
@@ -92,8 +92,8 @@ def modify(request):
         form = ModifyForm(request.POST, instance=reservation)
         if form.is_valid():
             print(form.cleaned_data)
-            send_mail('更改會議成功', 'Your reservation has been changed to '+ Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] +'. Please check on your calander.', None, form.cleaned_data.get('invitees'))
-            send_mail('更改會議成功', 'Your reservation has been changed to '+ Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] +'. Please check on your calander.', None, [form.cleaned_data.get('organizer')])
+            send_mail('更改會議成功', 'Your reservation has been changed to ' + request.POST.get('date') +' '+ Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] +' at '+ Reservation.ROOM_CHOICES[int(request.POST.get('room'))][1]+'. Please check on your calander.', None, form.cleaned_data.get('invitees'))
+            send_mail('更改會議成功', 'Your reservation has been changed to ' + request.POST.get('date') +' '+ Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] +' at '+ Reservation.ROOM_CHOICES[int(request.POST.get('room'))][1]+'. Please check on your calander.', None, [form.cleaned_data.get('organizer')])
             form.save()
             return redirect('/home/records/')
     print(auto_increment_id)
