@@ -92,6 +92,8 @@ def modify(request):
     if request.method == "POST":
         form = ModifyForm(request.POST, instance=reservation)
         if form.is_valid():
+            print(form.cleaned_data)
+            send_mail('更改會議成功', 'Your reservation has been changed. Please check on your calander.', None, form.cleaned_data.get('invitees'))
             form.save()
             return redirect('/home/records/')
     print(auto_increment_id)
@@ -107,6 +109,7 @@ def modify(request):
 def delete(request):
     auto_increment_id = request.GET.get('auto_increment_id')
     Reservation.objects.filter(auto_increment_id=auto_increment_id).delete()
+    send_mail('會議取消通知', 'Your meeting has been cancelled. Please check on your calander. ', None, [request.user])
     return redirect('/home/records/')
 
 
