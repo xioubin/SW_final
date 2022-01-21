@@ -31,12 +31,31 @@ def index(request):
     reservations = Reservation.objects.filter(date=date)
     context['reservations'] = reservations
 
-    # invalids = [[False for _ in range(
-    #     len(context['time_choices']))] for _ in range(len(context['room_choices']))]
-    # for reservation in reservations:
-    #     invalids[reservation.time][reservation.room] = True
+    htmls = ""
 
-    # context['invalids'] = invalids
+    invalids = []
+    for i, time_choice in context['time_choices']:
+        htmls += f"<tr><td class='centerText'>{time_choice}</td>"
+        for j, room_choice in context['room_choices']:
+
+            htmls += f"<td timeid = {time_choice} roomid = {room_choice}>"
+
+            invalid = False
+            for reservation in reservations:
+                # print(reservation.time, i)
+                if(reservation.time == i and reservation.room == j):
+                    invalid = True
+
+            if(invalid):
+                htmls += "<a class='centerText'>Invalid</a>"
+            else:
+                htmls += "<a class='centerText' href='{ % url 'book' % }?date = {{date}}&time = {{time_choice_key}}&room = {{room_choice_key}}'>Book</a>"
+            htmls += "</td>"
+        htmls += "</td></tr>"
+    context['invalids'] = invalids
+    print(invalids)
+
+    context['htmls'] = htmls
     return render(request, 'index.html', context=context)
 
 
