@@ -33,7 +33,8 @@ def index(request):
 
     htmls = ""
 
-    invalids = []
+    invalid = False
+
     for i, time_choice in context['time_choices']:
         htmls += f"<tr><td class='centerText'>{time_choice}</td>"
         for j, room_choice in context['room_choices']:
@@ -54,8 +55,6 @@ def index(request):
                 htmls += f"<a class='centerText' href='/home/book/?date={str(date)}&time={i}&room={j}'>Book</a>"
             htmls += "</td>"
         htmls += "</td></tr>"
-    context['invalids'] = invalids
-    print(invalids)
 
     context['htmls'] = htmls
     return render(request, 'index.html', context=context)
@@ -66,12 +65,19 @@ def book(request):
     if request.method == "POST":
         form = bookForm(request.POST, user=request.user)
         if form.is_valid():
-            text = 'You successfully reservated a meeting room. Please remember your meeting time.\nYour have reservated: ' + request.POST.get('date') + ' at ' + Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] + '\n'
+            text = 'You successfully reservated a meeting room. Please remember your meeting time.\nYour have reservated: ' + \
+                request.POST.get(
+                    'date') + ' at ' + Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] + '\n'
             mail = request.user
             send_mail('借用成功通知', text, None, [mail])
+<<<<<<< HEAD
             send_mail('會議邀請通知', 'You have been invited to a meeting at ' + Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] + ' Please check on your calander.', None, form.cleaned_data.get('invitees'))
+=======
+            print(form.cleaned_data)
+            send_mail('會議邀請通知', '你他媽的給我來參加會議喔', None,
+                      form.cleaned_data.get('invitees'))
+>>>>>>> dba0fc03a137064670b84c702b3ed6338d4a5b0c
             form.save()
-            # auth.login(request, user)
             return redirect('/home/')
     date = request.GET.get('date')
     time = request.GET.get('time')
@@ -92,7 +98,12 @@ def modify(request):
         form = ModifyForm(request.POST, instance=reservation)
         if form.is_valid():
             print(form.cleaned_data)
+<<<<<<< HEAD
             send_mail('更改會議成功', 'Your reservation has been changed to '+ Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] +'. Please check on your calander.', None, form.cleaned_data.get('invitees'))
+=======
+            send_mail('更改會議成功', 'Your reservation has been changed. Please check on your calander.',
+                      None, form.cleaned_data.get('invitees'))
+>>>>>>> dba0fc03a137064670b84c702b3ed6338d4a5b0c
             form.save()
             return redirect('/home/records/')
     print(auto_increment_id)
@@ -108,7 +119,8 @@ def modify(request):
 def delete(request):
     auto_increment_id = request.GET.get('auto_increment_id')
     Reservation.objects.filter(auto_increment_id=auto_increment_id).delete()
-    send_mail('會議取消通知', 'Your meeting has been cancelled. Please check on your calander. ', None, [request.user])
+    send_mail('會議取消通知', 'Your meeting has been cancelled. Please check on your calander. ', None, [
+              request.user])
     return redirect('/home/records/')
 
 
