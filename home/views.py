@@ -49,7 +49,9 @@ def index(request):
             if(invalid):
                 htmls += "<a class='centerText'>Invalid</a>"
             else:
-                htmls += "<a class='centerText' href='{ % url 'book' % }?date = {{date}}&time = {{time_choice_key}}&room = {{room_choice_key}}'>Book</a>"
+                # htmls += "<a class='centerText'>Valid</a>"
+
+                htmls += f"<a class='centerText' href='/home/book/?date={str(date)}&time={i}&room={j}'>Book</a>"
             htmls += "</td>"
         htmls += "</td></tr>"
     context['invalids'] = invalids
