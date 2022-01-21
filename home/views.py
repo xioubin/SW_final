@@ -45,6 +45,11 @@ def book(request):
     if request.method == "POST":
         form = bookForm(request.POST, user=request.user)
         if form.is_valid():
+            text = 'You successfully reservated a meeting room. Please remember your meeting time.\nYour have reservated: ' + request.POST.get('date') + ' at ' + Reservation.TIME_CHOICES[int(request.POST.get('time'))][1] + '\n'
+            mail = request.user
+            send_mail('借用成功通知', text, None, [mail])
+            print(form.cleaned_data)
+            send_mail('會議邀請通知', '你他媽的給我來參加會議喔', None, form.cleaned_data.get('invitees'))
             form.save()
             # auth.login(request, user)
             return redirect('/home/')
